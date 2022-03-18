@@ -41,7 +41,8 @@ Vue.prototype.$validate = {
 // Vue Cookies
 import VueCookies from 'vue-cookies';
 Vue.use(VueCookies);
-Vue.$cookies.config('7d', '', '', true, 'Strict');
+const isSecured = /^production$/ig.test(process.env?.NODE_ENV);
+Vue.$cookies.config('7d', '', '', isSecured, 'Strict');
 
 // Vue Number Animation
 import VueNumberAnimation from 'vue-number-animation';

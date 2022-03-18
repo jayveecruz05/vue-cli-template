@@ -32,29 +32,29 @@ npm run serve-canary
 npm run serve-production
 ```
 
+### Compiles and minifies for production
+```
+npm run build
+```
+
 ### Compiles and minifies for development
 ```
-npm run development
+npm run build-development
 ```
 
 ### Compiles and minifies for staging
 ```
-npm run staging
+npm run build-staging
 ```
 
 ### Compiles and minifies for canary
 ```
-npm run canary
+npm run build-canary
 ```
 
 ### Compiles and minifies for production
 ```
-npm run production
-```
-
-### Compiles and minifies for production
-```
-npm run build
+npm run build-production
 ```
 
 ### Lints and fixes files

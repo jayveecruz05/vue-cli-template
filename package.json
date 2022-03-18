@@ -8,11 +8,11 @@
     "serve-staging": "vue-cli-service serve --mode staging --open",
     "serve-canary": "vue-cli-service serve --mode canary --open",
     "serve-production": "vue-cli-service serve --mode production --open",
-    "development": "vue-cli-service build --mode development",
-    "staging": "vue-cli-service build --mode staging",
-    "canary": "vue-cli-service build --mode canary",
-    "production": "vue-cli-service build",
     "build": "vue-cli-service build",
+    "build-development": "vue-cli-service build --mode development",
+    "build-staging": "vue-cli-service build --mode staging",
+    "build-canary": "vue-cli-service build --mode canary",
+    "build-production": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {

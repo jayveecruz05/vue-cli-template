@@ -1,0 +1,27 @@
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0)">
+<rect x="4.11115" y="4.11118" width="1.55556" height="4.66668" fill="black"/>
+<rect x="2.55542" y="1" width="1.55556" height="1.55556" fill="black"/>
+<rect width="1.55556" height="1.55556" transform="matrix(1 0 0 -1 2.55542 15.0001)" fill="black"/>
+<rect width="1.55556" height="1.55556" transform="matrix(-1 0 0 1 13.4446 1)" fill="black"/>
+<rect x="13.4446" y="15.0001" width="1.55556" height="1.55556" transform="rotate(-180 13.4446 15.0001)" fill="black"/>
+<rect x="1" y="1" width="1.55556" height="1.55556" fill="black"/>
+<rect width="1.55556" height="1.55556" transform="matrix(1 0 0 -1 1 15.0001)" fill="black"/>
+<rect width="1.55556" height="1.55556" transform="matrix(-1 0 0 1 15 1)" fill="black"/>
+<rect x="15" y="15.0001" width="1.55556" height="1.55556" transform="rotate(-180 15 15.0001)" fill="black"/>
+<rect x="1" y="2.55554" width="1.55556" height="1.55556" fill="black"/>
+<rect width="1.55556" height="1.55556" transform="matrix(1 0 0 -1 1 13.4445)" fill="black"/>
+<rect width="1.55556" height="1.55556" transform="matrix(-1 0 0 1 15 2.55554)" fill="black"/>
+<rect x="15" y="13.4445" width="1.55556" height="1.55556" transform="rotate(-180 15 13.4445)" fill="black"/>
+<rect x="4.11115" y="7.22232" width="1.55556" height="1.55556" fill="black"/>
+<rect x="4.11115" y="10.3333" width="1.55556" height="1.55556" fill="black"/>
+<rect x="5.19995" y="7.22232" width="6.6889" height="1.55556" fill="black"/>
+<rect x="10.3334" y="4.11118" width="1.55556" height="1.55556" fill="black"/>
+<rect x="10.3334" y="8.46664" width="1.55556" height="3.42223" fill="black"/>
+</g>
+<defs>
+<clipPath id="clip0">
+<path d="M0 0H16V16H0V0Z" fill="white"/>
+</clipPath>
+</defs>
+</svg>

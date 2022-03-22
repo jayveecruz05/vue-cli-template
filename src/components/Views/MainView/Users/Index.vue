@@ -67,7 +67,7 @@
 
               <v-tooltip bottom>
                 <template v-slot:activator="{ on }">
-                  <v-icon class="mr-2" small v-on="on" @click="confirmAction({ message: 'Are you sure you want to edit', action: 'edit', data: item })">mdi-pencil</v-icon>
+                  <v-icon class="mr-2" small v-on="on" @click="action({ action: 'edit', data: item })">mdi-pencil</v-icon>
                 </template>
                 <span>Edit</span>
               </v-tooltip>
@@ -302,6 +302,7 @@
           case 'add':
             this.userForm = { show: true, action, data: {} };
             break;
+          case 'view':
           case 'edit':
             this.confirmDialog.show = false;
             this.userForm = { show: true, action, data }
@@ -309,9 +310,6 @@
           case 'delete':
             this.confirmDialog.loading = true;
             this.deleteUser();
-            break;
-          default:
-            this.userForm = { show: true, action, data: (data || {}) };
             break;
         }
       },

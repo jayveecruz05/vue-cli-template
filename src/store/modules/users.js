@@ -26,9 +26,9 @@ export default {
   },
   actions: {
     fetchUsers(context, payload) {
-      const { config } = payload || {};
+      const { config, apiCancelToken } = payload || {};
       return new Promise((resolve, reject) => {
-        users.getData({ to: '/users', config }).then(
+        users.getData({ to: '/users', config, apiCancelToken }).then(
           (response) => {
             // console.log(response);
             context.commit('SET_USERS_LIST', response.data);
@@ -45,9 +45,9 @@ export default {
       });
     },
     findUser(context, payload) {
-      const { id, config } = payload || {};
+      const { id, config, apiCancelToken } = payload || {};
       return new Promise((resolve, reject) => {
-        users.getData({ to: `/user/${id}`, config }).then(
+        users.getData({ to: `/user/${id}`, config, apiCancelToken }).then(
           (response) => {
             // console.log(response);
             context.commit('SET_USER_DETAILS', response.data);
@@ -64,9 +64,9 @@ export default {
       });
     },
     addUser(context, payload) {
-      const { data, config } = payload || {};
+      const { data, config, apiCancelToken } = payload || {};
       return new Promise((resolve, reject) => {
-        users.postData({ to: '/users', data, config }).then(
+        users.postData({ to: '/users', data, config, apiCancelToken }).then(
           (response) => {
             // console.log(response);
             resolve(response);
@@ -81,9 +81,9 @@ export default {
       });
     },
     setUser(context, payload) {
-      const { data, config } = payload || {};
+      const { data, config, apiCancelToken } = payload || {};
       return new Promise((resolve, reject) => {
-        users.putData({ to: '/users', data, config }).then(
+        users.putData({ to: '/users', data, config, apiCancelToken }).then(
           (response) => {
             // console.log(response);
             resolve(response);
@@ -98,9 +98,9 @@ export default {
       });
     },
     deleteUser(context, payload) {
-      const { config } = payload || {};
+      const { config, apiCancelToken } = payload || {};
       return new Promise((resolve, reject) => {
-        users.deleteData({ to: '/users', config }).then(
+        users.deleteData({ to: '/users', config, apiCancelToken }).then(
           (response) => {
             // console.log(response);
             resolve(response);

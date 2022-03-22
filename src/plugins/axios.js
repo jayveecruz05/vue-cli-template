@@ -12,8 +12,8 @@ const api = (instanceConfig) => {
   const vm = new Vue({ name: 'app-api' });
   
   let CancelToken = Axios.CancelToken,
-      cancelApiCall = {},
-      generateID = () => (Math.floor(Math.random() * Date.now()).toString(36).substr(2));
+      apiCallList = {},
+      generateApiCancelToken = () => (`api_cancel_token_${Math.floor(Math.random() * Date.now()).toString(36).slice(2)}`);
   
   // Process ENV Details
   // console.log(process.env);
@@ -67,96 +67,95 @@ const api = (instanceConfig) => {
         delete axiosInstance.defaults.headers.common['Authorization'];
       }
     },
-    cancelCurrentApiCall() {
-      const cancelSourceList = Object.keys(cancelApiCall);
-      if (cancelSourceList.length > 0) {
-        cancelSourceList.forEach((cancelSource) => { cancelApiCall[cancelSource]('Cancel Current API Call.'); });
-        cancelApiCall = {};
+    cancelCurrentApiCall(cancelToken) {
+      const cancelSourceList = Object.keys(apiCallList);
+      if (cancelToken) {
+        const cancelRequest = apiCallList[cancelToken];
+        if (cancelRequest) { cancelRequest(`Cancel "${cancelToken}" API Call.`) }
+      } else if (cancelSourceList.length > 0) {
+        cancelSourceList.forEach((apiCancelToken) => { apiCallList[apiCancelToken]('Cancel All Current API Call.'); });
+        apiCallList = {};
       }
     },
     get(payload) {
-      const { url, config } = payload || {},
-            cancelSourceID = `cancel_source_${generateID()}`;
+      const { url, config, apiCancelToken = generateApiCancelToken() } = payload || {};
       return new Promise((resolve, reject) => {
         axiosInstance.get(url, {
           ...config,
-          cancelToken: new CancelToken((cancelSource) => { cancelApiCall = { ...cancelApiCall, [cancelSourceID]: cancelSource }; })
+          cancelToken: new CancelToken((cancelSource) => { apiCallList = { ...apiCallList, [apiCancelToken]: cancelSource }; })
         }).then(
           (response) => {
             // console.log(response);
-            delete cancelApiCall[cancelSourceID];
+            delete apiCallList[apiCancelToken];
             resolve(response);
           }
         ).catch(
           (error) => {
             // console.log(error);
-            delete cancelApiCall[cancelSourceID];
+            delete apiCallList[apiCancelToken];
             if (!Axios.isCancel(error)) { reject(error); }
           }
         );
       });
     },
     post(payload) {
-      const { url, data, config } = payload || {},
-            cancelSourceID = `cancel_source_${generateID()}`;
+      const { url, data, config, apiCancelToken = generateApiCancelToken() } = payload || {};
       return new Promise((resolve, reject) => {
         axiosInstance.post(url, data, {
           ...config,
-          cancelToken: new CancelToken((cancelSource) => { cancelApiCall = { ...cancelApiCall, [cancelSourceID]: cancelSource }; })
+          cancelToken: new CancelToken((cancelSource) => { apiCallList = { ...apiCallList, [apiCancelToken]: cancelSource }; })
         }).then(
           (response) => {
             // console.log(response);
-            delete cancelApiCall[cancelSourceID];
+            delete apiCallList[apiCancelToken];
             resolve(response);
           }
         ).catch(
           (error) => {
             // console.log(error);
-            delete cancelApiCall[cancelSourceID];
+            delete apiCallList[apiCancelToken];
             if (!Axios.isCancel(error)) { reject(error); }
           }
         );
       });
     },
     put(payload) {
-      const { url, data, config } = payload || {},
-            cancelSourceID = `cancel_source_${generateID()}`;
+      const { url, data, config, apiCancelToken = generateApiCancelToken() } = payload || {};
       return new Promise((resolve, reject) => {
         axiosInstance.put(url, data, {
           ...config,
-          cancelToken: new CancelToken((cancelSource) => { cancelApiCall = { ...cancelApiCall, [cancelSourceID]: cancelSource }; })
+          cancelToken: new CancelToken((cancelSource) => { apiCallList = { ...apiCallList, [apiCancelToken]: cancelSource }; })
         }).then(
           (response) => {
             // console.log(response);
-            delete cancelApiCall[cancelSourceID];
+            delete apiCallList[apiCancelToken];
             resolve(response);
           }
         ).catch(
           (error) => {
             // console.log(error);
-            delete cancelApiCall[cancelSourceID];
+            delete apiCallList[apiCancelToken];
             if (!Axios.isCancel(error)) { reject(error); }
           }
         );
       });
     },
     delete(payload) {
-      const { url, config } = payload || {},
-            cancelSourceID = `cancel_source_${generateID()}`;
+      const { url, config, apiCancelToken = generateApiCancelToken() } = payload || {};
       return new Promise((resolve, reject) => {
         axiosInstance.delete(url, {
           ...config,
-          cancelToken: new CancelToken((cancelSource) => { cancelApiCall = { ...cancelApiCall, [cancelSourceID]: cancelSource }; })
+          cancelToken: new CancelToken((cancelSource) => { apiCallList = { ...apiCallList, [apiCancelToken]: cancelSource }; })
         }).then(
           (response) => {
             // console.log(response);
-            delete cancelApiCall[cancelSourceID];
+            delete apiCallList[apiCancelToken];
             resolve(response);
           }
         ).catch(
           (error) => {
             // console.log(error);
-            delete cancelApiCall[cancelSourceID];
+            delete apiCallList[apiCancelToken];
             if (!Axios.isCancel(error)) { reject(error); }
           }
         );

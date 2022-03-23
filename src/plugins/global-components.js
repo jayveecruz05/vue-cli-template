@@ -2,13 +2,13 @@
 
 import Vue from 'vue';
 
-// App Date Picker
-import AppDatePicker from '@/components/Tools/AppDatePicker';
-Vue.component(AppDatePicker.name, AppDatePicker);
-
 // App Confirm
 import AppConfirm from '@/components/Tools/AppConfirm';
 Vue.component(AppConfirm.name, AppConfirm);
+
+// App Date Picker
+import AppDatePicker from '@/components/Tools/AppDatePicker';
+Vue.component(AppDatePicker.name, AppDatePicker);
 
 // App File Field
 import AppFileField from '@/components/Tools/AppFileField';

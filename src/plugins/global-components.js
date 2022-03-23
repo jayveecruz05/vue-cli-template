@@ -6,7 +6,7 @@ import Vue from 'vue';
 import AppDatePicker from '@/components/Tools/AppDatePicker';
 Vue.component(AppDatePicker.name, AppDatePicker);
 
-// App App Confirm
+// App Confirm
 import AppConfirm from '@/components/Tools/AppConfirm';
 Vue.component(AppConfirm.name, AppConfirm);
 

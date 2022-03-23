@@ -69,9 +69,10 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  // console.log(to, from, next);
+  // console.log({ to, from, next });
 
-  router.app.$api.main.cancelCurrentApiCall();
+  // Cancel current API call in route change
+  if (to.name != from.name) { router.app.$api.main.cancelCurrentApiCall(); }
 
   const token = router.app.$cookies.get('token');
 

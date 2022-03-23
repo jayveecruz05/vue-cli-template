@@ -74,7 +74,7 @@
 
               <v-tooltip bottom>
                 <template v-slot:activator="{ on }">
-                  <v-icon class="mr-2" small v-on="on" @click="confirmAction({ message: 'Are you sure you want to delete', buttonText: 'delete', buttonColor: '#EB5757', action: 'delete', data: item, callBack: () => { action({ action: 'delete', data: item }) } })">mdi-delete</v-icon>
+                  <v-icon class="mr-2" small v-on="on" @click="confirmAction({ message: 'Are you sure you want to delete', buttonText: 'delete', buttonBGColor: '#EB5757', action: 'delete', data: item, callBack: () => { action({ action: 'delete', data: item }) } })">mdi-delete</v-icon>
                 </template>
                 <span>Delete</span>
               </v-tooltip>
@@ -166,8 +166,7 @@
             { user_id: 'U4', user_name: 'janie', first_name: 'Janie', last_name: 'Doe', email: 'janiedoe@yahoo.com', confirmed: false, mobile_number: '9109283081', roles: ['admin'], last_update: '03/25/2019 11:13:00' },
           ] || undefined
         },
-        userForm: { show: false, action: '', data: {} },
-        confirmDialog: { show: false, loading: false, title: '', message: '', buttonText: '', buttonColor: '', action: '', data: {}, callBack: () => {} }
+        userForm: { show: false, action: '', data: {} }
       };
     },
     computed: {
@@ -277,10 +276,6 @@
             });
           }
         );
-      },
-      confirmAction(payload) {
-        const { title, message, buttonText, buttonColor, action, data, callBack } = payload || {};
-        this.confirmDialog = { show: true, loading: false, title, message, buttonText, buttonColor, action, data, callBack };
       },
       action({ action, data }) {
         // console.log(action, data);

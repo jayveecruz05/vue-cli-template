@@ -16,7 +16,7 @@
       <v-card-actions>
         <v-row class="flex-row-reverse pb-3" align="center" justify="center">
           <v-col md="5" cols="12" class="pb-0">
-            <v-btn class="confirm-btn btn-min-width" block depressed dark :color="buttonColor" :loading="loading" @click="confirm">{{ buttonText }}</v-btn>
+            <v-btn :class="[ 'confirm-btn', 'btn-min-width', `${buttonTextColor}--text` ]" block depressed dark :color="buttonBGColor" :loading="loading" @click="confirm">{{ buttonText }}</v-btn>
           </v-col>
           <v-col md="5" cols="12" class="pb-0">
             <v-btn class="btn-min-width" block text :disabled="loading" @click="cancel">Cancel</v-btn>
@@ -40,7 +40,8 @@
       title: { type: String, default: 'Confirmation', required: false },
       message: { type: String, default: 'Confirmation Message.', required: false },
       buttonText: { type: String, default: 'confirm', required: false },
-      buttonColor: { type: String, default: '#2F80ED', required: false },
+      buttonTextColor: { type: String, default: 'white', required: false },
+      buttonBGColor: { type: String, default: '#2F80ED', required: false },
       action: { type: String, default: '', required: false },
       data: { type: Object, default: () => ({}), required: false },
       callBack: { type: Function, default: () => {}, required: false }

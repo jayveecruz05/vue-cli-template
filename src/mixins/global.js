@@ -2,7 +2,9 @@
 
 const global = {
   data() {
-    return {};
+    return {
+      confirmDialog: { show: false, loading: false, title: '', message: '', buttonText: '', buttonTextColor: '', buttonBGColor: '', action: '', data: {}, callBack: () => {} }
+    };
   },
   filters: {},
   methods: {
@@ -17,7 +19,11 @@ const global = {
       }
       return false;
     },
-    generateApiCancelToken() { return `api_cancel_token_${Math.floor(Math.random() * Date.now()).toString(36).slice(2)}`; }
+    generateApiCancelToken() { return `api_cancel_token_${Math.floor(Math.random() * Date.now()).toString(36).slice(2)}`; },
+    confirmAction(payload) {
+      const { title, message, buttonText, buttonTextColor, buttonBGColor, action, data, callBack } = payload || {};
+      this.confirmDialog = { show: true, loading: false, title, message, buttonText, buttonTextColor, buttonBGColor, action, data, callBack };
+    }
   }
 };
 

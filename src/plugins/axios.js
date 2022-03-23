@@ -69,9 +69,14 @@ const api = (instanceConfig) => {
     },
     cancelCurrentApiCall(cancelToken) {
       const cancelSourceList = Object.keys(apiCallList);
-      if (cancelToken) {
+      if (cancelToken && typeof cancelToken === 'string') {
         const cancelRequest = apiCallList[cancelToken];
         if (cancelRequest) { cancelRequest(`Cancel "${cancelToken}" API Call.`) }
+      } else if (cancelToken && Array.isArray(cancelToken) && cancelToken.length > 0) {
+        cancelToken.forEach((apiCancelToken) => {
+          const cancelRequest = apiCallList[apiCancelToken];
+          if (cancelRequest) { cancelRequest(`Cancel "${apiCancelToken}" API Call.`) }
+        });
       } else if (cancelSourceList.length > 0) {
         cancelSourceList.forEach((apiCancelToken) => { apiCallList[apiCancelToken]('Cancel All Current API Call.'); });
         apiCallList = {};

@@ -2,9 +2,7 @@
 
 const global = {
   data() {
-    return {
-      confirmDialog: { show: false, loading: false, title: 'Confirmation', message: 'Confirmation Message.', action: '', data: {}, callback: undefined }
-    };
+    return {};
   },
   filters: {},
   methods: {
@@ -19,10 +17,7 @@ const global = {
       }
       return false;
     },
-    generateApiCancelToken() { return `api_cancel_token_${Math.floor(Math.random() * Date.now()).toString(36).slice(2)}`; },
-    confirmAction({ title = 'Confirmation', message = 'Confirmation Message.', action = '', data = {}, callback = undefined }) {
-      this.confirmDialog = { show: true, loading: false, title, message, action, data, callback };
-    }
+    generateApiCancelToken() { return `api_cancel_token_${Math.floor(Math.random() * Date.now()).toString(36).slice(2)}`; }
   }
 };
 

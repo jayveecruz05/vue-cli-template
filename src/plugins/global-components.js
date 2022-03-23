@@ -6,6 +6,14 @@ import Vue from 'vue';
 import AppDatePicker from '@/components/Tools/AppDatePicker';
 Vue.component(AppDatePicker.name, AppDatePicker);
 
+// App Date Picker
+import AppConfirm from '@/components/Tools/AppConfirm';
+Vue.component(AppConfirm.name, AppConfirm);
+
+// App File Field
+import AppFileField from '@/components/Tools/AppFileField';
+Vue.component(AppFileField.name, AppFileField);
+
 // Bar Chart
 import BarChart from '@/components/Tools/Charts/Bar';
 Vue.component(BarChart.name, BarChart);

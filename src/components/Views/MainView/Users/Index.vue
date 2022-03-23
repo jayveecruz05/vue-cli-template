@@ -74,7 +74,7 @@
 
               <v-tooltip bottom>
                 <template v-slot:activator="{ on }">
-                  <v-icon class="mr-2" small v-on="on" @click="confirmAction({ message: 'Are you sure you want to delete', action: 'delete', data: item })">mdi-delete</v-icon>
+                  <v-icon class="mr-2" small v-on="on" @click="confirmAction({ message: 'Are you sure you want to delete', buttonText: 'delete', buttonColor: '#EB5757', action: 'delete', data: item, callBack: () => { action({ action: 'delete', data: item }) } })">mdi-delete</v-icon>
                 </template>
                 <span>Delete</span>
               </v-tooltip>
@@ -114,30 +114,9 @@
 
     <user-form v-bind="userForm" @close="userForm = { ...userForm, show: false, data: {} }"/>
 
-    <v-dialog v-model="confirmDialog.show" scrollable width="400" max-width="auto" color="primaryBackgroundColor" transition="scroll-y-reverse-transition" persistent>
-      <v-card class="confirm-dialog">
-        <v-tooltip bottom>
-          <template v-slot:activator="{ on }">
-            <v-icon class="dialog-close" v-on="on" @click="confirmDialog.show = false" :disabled="confirmDialog.loading">close</v-icon>
-          </template>
-          <span>Close</span>
-        </v-tooltip>
-        <v-card-title class="font-size-18 font-weight-bold">{{ confirmDialog.title }}</v-card-title>
-        <v-card-text class="px-6 py-4">
-          <p class="font-size-14 ma-0">{{ confirmDialog.message }} {{ `${(confirmDialog.data) ? `"${confirmDialog.data.first_name} ${confirmDialog.data.last_name}"?` : 'this user?'}` }}</p>
-        </v-card-text>
-        <v-card-actions>
-          <v-row class="flex-row-reverse pb-3" align="center" justify="center">
-            <v-col md="5" cols="12" class="pb-0">
-              <v-btn class="confirm-btn btn-min-width" block depressed dark :color="((/^delete$/ig.test(confirmDialog.action)) ? '#EB5757' : '#2F80ED')" :loading="confirmDialog.loading" @click="action({ action: confirmDialog.action, data: confirmDialog.data });">Confirm</v-btn>
-            </v-col>
-            <v-col md="5" cols="12" class="pb-0">
-              <v-btn class="btn-min-width" block text :disabled="confirmDialog.loading" @click="confirmDialog.show = false">Cancel</v-btn>
-            </v-col>
-          </v-row>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+    <app-confirm v-model="confirmDialog.show" v-bind="confirmDialog">
+      <p class="font-size-14 ma-0">{{ confirmDialog.message }} {{ `${(confirmDialog.data) ? `"${confirmDialog.data.first_name} ${confirmDialog.data.last_name}"?` : 'this user?'}` }}</p>
+    </app-confirm>
   </v-container>
 </template>
 
@@ -187,7 +166,8 @@
             { user_id: 'U4', user_name: 'janie', first_name: 'Janie', last_name: 'Doe', email: 'janiedoe@yahoo.com', confirmed: false, mobile_number: '9109283081', roles: ['admin'], last_update: '03/25/2019 11:13:00' },
           ] || undefined
         },
-        userForm: { show: false, action: '', data: {} }
+        userForm: { show: false, action: '', data: {} },
+        confirmDialog: { show: false, loading: false, title: '', message: '', buttonText: '', buttonColor: '', action: '', data: {}, callBack: () => {} }
       };
     },
     computed: {
@@ -248,7 +228,8 @@
         this.dataTable.data = this.dataTable.data.map((details) => ({ ...details, full_name: `${details.first_name} ${details.last_name}` }));
       },
       getData() {
-        this.$api.main.cancelCurrentApiCall();
+        this.$api.main.cancelCurrentApiCall(this.userApiCancelToken);
+        this.userApiCancelToken = this.generateApiCancelToken();
         this.dataTable.loading = true;
         const { search, itemLength, currentPage, sortBy, sortDesc } = this.dataTable;
         this.$store.dispatch('users/fetchUsers', {
@@ -260,7 +241,8 @@
               sortby: sortBy[0],
               sorting: (sortDesc[0] != undefined) ? ((!sortDesc[0]) ? 'asc' : 'desc') : undefined
             }
-          }
+          },
+          apiCancelToken: this.userApiCancelToken
         }).then(
           (response) => {
             this.$notify({
@@ -296,24 +278,26 @@
           }
         );
       },
+      confirmAction(payload) {
+        const { title, message, buttonText, buttonColor, action, data, callBack } = payload || {};
+        this.confirmDialog = { show: true, loading: false, title, message, buttonText, buttonColor, action, data, callBack };
+      },
       action({ action, data }) {
         // console.log(action, data);
         switch (action) {
           case 'add':
-            this.userForm = { show: true, action, data: {} };
+            this.userForm = { show: true, action };
             break;
           case 'view':
           case 'edit':
-            this.confirmDialog.show = false;
             this.userForm = { show: true, action, data }
             break;
           case 'delete':
             this.confirmDialog.loading = true;
-            this.deleteUser();
+            setTimeout(() => { this.confirmDialog.show = false; }, 1000);
             break;
         }
-      },
-      deleteUser() {}
+      }
     },
     created() {
       this.initiate();

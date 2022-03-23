@@ -26,7 +26,7 @@
 <script>
   export default {
     name: 'app-date-picker',
-    emits: ['clear', 'change', 'input'],
+    emits: [ 'clear', 'change', 'input' ],
     props: {
       value: { required: false },
       label: { type: String, default: 'Select Date', required: false },

@@ -19,28 +19,28 @@
           <!-- <v-tabs-items v-model="tab" class="pt-3">
             <v-tab-item> -->
               <v-row>
-                <v-col cols="12" class="py-0">
+                <v-col class="py-0" cols="12">
                   <v-text-field v-model="formData.user_name" label="User Name" autocomplete="off" color="primaryTextColor" flat outlined dense clearable :rules="[$validate.rules.required]" :disabled="(action == 'view' || formData.loading)"/>
                 </v-col>
-                <v-col md="6" cols="12" class="py-0">
+                <v-col class="py-0" md="6" cols="12">
                   <v-text-field v-model="formData.first_name" label="First Name" autocomplete="off" color="primaryTextColor" flat outlined dense clearable :rules="[$validate.rules.required]" :disabled="(action == 'view' || formData.loading)" @keypress="$validate.lettersOnly"/>
                 </v-col>
-                <v-col md="6" cols="12" class="py-0">
+                <v-col class="py-0" md="6" cols="12">
                   <v-text-field v-model="formData.last_name" label="Last Name" autocomplete="off" color="primaryTextColor" flat outlined dense clearable :rules="[$validate.rules.required]" :disabled="(action == 'view' || formData.loading)" @keypress="$validate.lettersOnly"/>
                 </v-col>
-                <v-col md="6" cols="12" class="py-0">
+                <v-col class="py-0" md="6" cols="12">
                   <v-text-field v-model="formData.mobile_number" label="Mobile Number" autocomplete="off" color="primaryTextColor" flat outlined dense clearable :rules="[$validate.rules.required, $validate.rules.mobileNumber]" :disabled="(action == 'view' || formData.loading)" type="tel" prefix="+63" maxlength="10" counter="10" @keypress="$validate.numbersOnly"/>
                 </v-col>
-                <v-col md="6" cols="12" class="py-0">
+                <v-col class="py-0" md="6" cols="12">
                   <v-text-field v-model="formData.email" label="Email" autocomplete="off" color="primaryTextColor" flat outlined dense clearable :rules="[$validate.rules.required, $validate.rules.email]" :disabled="(action == 'view' || formData.loading)"/>
                 </v-col>
-                <v-col v-if="(action == 'add')" md="6" cols="12" class="py-0">
+                <v-col v-if="(action == 'add')" class="py-0" md="6" cols="12">
                   <v-text-field v-model="formData.password" label="Password" color="primaryTextColor" flat outlined dense clearable :rules="[$validate.rules.required]" :disabled="(formData.loading)" :type="((showPassword) ? 'text' : 'password')" :append-icon="((showPassword) ? 'mdi-eye' : 'mdi-eye-off')" @click:append="showPassword = !showPassword"/>
                 </v-col>
-                <v-col v-if="(action == 'add')" md="6" cols="12" class="py-0">
+                <v-col v-if="(action == 'add')" class="py-0" md="6" cols="12">
                   <v-text-field v-model="formData.confirm_password" label="Confirm Password" color="primaryTextColor" flat outlined dense clearable :rules="[$validate.rules.required]" :error-messages="((formData.password && formData.confirm_password) && (formData.confirm_password != formData.password)) ? 'Passwords don\'t match.' : ''" :disabled="(formData.loading)" :type="((showConfrimPassword) ? 'text' : 'password')" :append-icon="((showConfrimPassword) ? 'mdi-eye' : 'mdi-eye-off')" @click:append="showConfrimPassword = !showConfrimPassword"/>
                 </v-col>
-                <v-col cols="12" class="py-0">
+                <v-col class="py-0" cols="12">
                   <v-select v-model="formData.roles" :items="roleList" label="Roles" color="primaryTextColor" flat outlined multiple small-chips deletable-chips hide-selected clearable :menu-props="{ top: true, offsetY: true }" :rules="[$validate.rules.requiredList]" :disabled="(action == 'view' || formData.loading)">
                     <template v-slot:selection="{ item, parent, selected }">
                       <v-chip :input-value="selected" label small class="white--text" color="primary" @click.native.stop>
@@ -50,7 +50,7 @@
                     </template>
                   </v-select>
                 </v-col>
-                <v-col md="6" cols="12" class="py-0">
+                <v-col class="py-0" md="6" cols="12">
                   <v-select v-model="formData.sites" :items="siteList" label="Sites" color="primaryTextColor" flat outlined multiple small-chips deletable-chips hide-selected clearable :menu-props="{ top: true, offsetY: true }" :rules="[$validate.rules.requiredList]" :disabled="(action == 'view' || formData.loading)">
                     <template v-slot:selection="{ item, parent, selected }">
                       <v-chip :input-value="selected" label small class="white--text" color="primary" @click.native.stop>
@@ -66,8 +66,11 @@
                 <v-col md="3" cols="12" class="py-0 mb-7">
                   <v-switch v-model="formData.confirmed" class="mt-0 ml-1" inset label="Confirmed" :disabled="(action == 'view' || formData.loading)" hide-details/>
                 </v-col> -->
-                <v-col md="6" cols="12" class="py-0">
+                <v-col class="py-0" md="6" cols="12">
                   <v-select v-model="formData.commission" :items="Array.from({length: 99}, (_, i) => `${i + 1}%`)" label="Percent Commission (Optional)" color="primaryTextColor" flat outlined clearable :disabled="(action == 'view' || formData.loading)"/>
+                </v-col>
+                <v-col class="py-0" cols="12">
+                  <app-file-field v-model="formData.image" :rules="[$validate.rules.required]" :disabled="(action == 'view' || formData.loading)"/>
                 </v-col>
               </v-row>
             <!-- </v-tab-item>
@@ -94,9 +97,9 @@
   export default {
     name: 'user-form',
     props: {
-      show: { type: Boolean, default: false, required: true },
-      action: { type: String, default: '' },
-      data: { type: Object, default: new Object() }
+      show: { type: Boolean, default: false, required: false },
+      action: { type: String, default: '', required: false },
+      data: { type: Object, default: () => ({}), required: false }
     },
     data() {
       return {
@@ -120,7 +123,8 @@
           confirm_password: '',
           roles: [],
           sites: [],
-          commission: ''
+          commission: '',
+          image: { model: undefined, content: undefined }
         }
       };
     },
@@ -146,55 +150,52 @@
     methods: {
       clearForm() {
         this.$refs.formData.reset();
-
-        // setTimeout(() => {
-        //   this.formData = {
-        //     status: false,
-        //     loading: false,
-        //     user_name: '',
-        //     first_name: '',
-        //     last_name: '',
-        //     mobile_number: undefined,
-        //     email: '',
-        //     active: true,
-        //     confirmed: true,
-        //     password: '',
-        //     confirm_password: '',
-        //     roles: [],
-        //     sites: [],
-        //     commission: ''
-        //   };
-        // });
+        setTimeout(() => {
+          this.formData = {
+            status: false,
+            loading: false,
+            user_name: '',
+            first_name: '',
+            last_name: '',
+            mobile_number: undefined,
+            email: '',
+            active: true,
+            confirmed: true,
+            password: '',
+            confirm_password: '',
+            roles: [],
+            sites: [],
+            commission: '',
+            image: { model: undefined, content: undefined }
+          };
+        });
       },
       addUpdate() {
-        // let formStatus = this.$refs.formData.validate();
-
-        // if (formStatus && this.formData.status && !this.formData.loading) {
-        //   this.formData.loading = true;
-
-        //   const { roles, first_name, last_name, mobile_number, password  } = this.formData;
-
-        //   this.$store.dispatch('users/addUser', {
-        //     data: {
-        //       status: 'active',
-        //       roles,
-        //       first_name,
-        //       last_name,
-        //       mobile_number,
-        //       password,
-        //     }
-        //   }).then(
-        //     () => {
-        //       this.formData.loading = false;
-        //       this.dialog = false;
-        //     }
-        //   ).catch(
-        //     (error) => {
-        //       console.log(error);
-        //       this.formData.loading = false;
-        //     }
-        //   );
-        // }
+        let formStatus = this.$refs.formData.validate();
+        if (formStatus && this.formData.status && !this.formData.loading) {
+          this.formData.loading = true;
+          // const { roles, first_name, last_name, mobile_number, password  } = this.formData;
+          // this.$store.dispatch('users/addUser', {
+          //   data: {
+          //     status: 'active',
+          //     roles,
+          //     first_name,
+          //     last_name,
+          //     mobile_number,
+          //     password,
+          //   }
+          // }).then(
+          //   () => {
+          //     this.formData.loading = false;
+          //     this.dialog = false;
+          //   }
+          // ).catch(
+          //   (error) => {
+          //     console.log(error);
+          //     this.formData.loading = false;
+          //   }
+          // );
+        }
       }
     },
     mounted() {}

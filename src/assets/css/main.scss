@@ -195,25 +195,6 @@
       right: 10px;
     }
 
-    .confirm-dialog {
-      table {
-        border-collapse: collapse;
-        width: 100%;
-        padding-bottom: 10px;
-
-        tr:nth-child(odd) {
-          background-color: #fafbfc;
-        }
-      }
-      th,
-      td {
-        text-align: left;
-        padding: 5px 10px;
-        line-height: 35px;
-        min-height: 44.4px;
-      }
-    }
-
     .v-card {
       .v-card__text {
         padding: 10px 24px;

@@ -76,7 +76,7 @@ const api = (instanceConfig) => {
           const cancelRequest = apiCallList[apiCancelToken];
           if (cancelRequest) { cancelRequest(`Cancel "${apiCancelToken}" API Call.`) }
         });
-      } else if (cancelSourceList.length > 0) {
+      } else if (!cancelToken && cancelSourceList.length > 0) {
         cancelSourceList.forEach((apiCancelToken) => { apiCallList[apiCancelToken]('Cancel All Current API Call.'); });
         apiCallList = {};
       }

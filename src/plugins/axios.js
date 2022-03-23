@@ -59,7 +59,6 @@ const api = (instanceConfig) => {
     },
     setAuthorization(token) {
       // console.log(token);
-      
       // Set Authorization
       if (token) {
         axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;

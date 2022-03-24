@@ -10,6 +10,7 @@ const MainView = () => import(/* webpackChunkName: "main-view" */ '@/views/MainV
 const Dashboard = () => import(/* webpackChunkName: "dashboard" */ '@/components/Views/MainView/Dashboard/Index');
 const Users = () => import(/* webpackChunkName: "users" */ '@/components/Views/MainView/Users/Index');
 
+const mainViewRedirect = { name: 'dashboard' };
 const routes = [
   {
     path: '/auth',
@@ -29,7 +30,7 @@ const routes = [
   {
     path: '/',
     name: 'main-view',
-    redirect: { name: 'dashboard' },
+    redirect: mainViewRedirect,
     component: MainView,
     meta: { requiresAuthentication: true },
     children: [
@@ -85,7 +86,7 @@ router.beforeEach((to, from, next) => {
     } else {
       router.app.$cookies.remove('token');
       router.app.$api.main.setAuthorization(undefined);
-      next({ name: 'login', query: { redirect: ((to.name != "dashboard") ? to.name : undefined) } });
+      next({ name: 'login', query: { redirect: ((to.name != mainViewRedirect.name) ? to.name : undefined) } });
     }
   } else {
     if (to.matched.length == 0) {

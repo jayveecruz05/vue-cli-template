@@ -12,20 +12,20 @@
       <v-col class="pa-0" cols="12">
         <v-row>
           <v-col md="3" lg="3" cols="12">
-            <v-text-field v-model="dataTable.search" label="Search" placeholder="Search" append-icon="search" solo dense flat color="primaryTextColor" clearable hide-details/>
+            <v-text-field v-model="dataTable.search" label="Search" placeholder="Search" append-icon="search" solo dense flat color="primary" clearable hide-details/>
           </v-col>
           <v-col md="2" cols="12">
-            <v-select :items="['active', 'deactivated', 'deleted']" label="Status" placeholder="Status" solo dense flat color="primaryTextColor" background-color="primaryBackgroundColor" clearable hide-details/>
+            <v-select :items="['active', 'deactivated', 'deleted']" label="Status" placeholder="Status" solo dense flat color="primary" background-color="primaryBackgroundColor" clearable hide-details/>
           </v-col>
           <v-col md="2" cols="12">
-            <v-select :items="['administrator', 'finance admin']" label="Role Type" placeholder="Role Type" solo dense flat color="primaryTextColor" background-color="primaryBackgroundColor" clearable hide-details/>
+            <v-select :items="['administrator', 'finance admin']" label="Role Type" placeholder="Role Type" solo dense flat color="primary" background-color="primaryBackgroundColor" clearable hide-details/>
           </v-col>
           <v-col md="3" cols="12">
             <app-date-picker v-model="dataTable.date" label="Select Dates" placeholder="Select Dates" min="1950-01-01" :max="new Date().toISOString().substr(0, 10)" solo custom-range clearable hide-details />
           </v-col>
           <v-spacer/>
           <v-col md="auto" lg="auto" cols="12">
-            <v-btn depressed block dark color="#2F80ED" @click="action({ action: 'add' })"><v-icon left>add</v-icon>Add User</v-btn>
+            <v-btn class="primaryTextColor--text" depressed block color="primary" @click="action({ action: 'add' })"><v-icon left>add</v-icon>Add User</v-btn>
           </v-col>
         </v-row>
       </v-col>
@@ -104,7 +104,7 @@
         <v-card class="data-table-footer d-flex align-center justify-space-between flex-wrap border-radius-10 py-0" flat color="primaryBackgroundColor">
           <div class="flex-md-grow-0 flex-sm-grow-0 flex-grow-1 d-flex align-center justify-center py-2 px-3">
             <span>Show</span>
-            <v-select class="item-length" v-model="dataTable.itemLength" :items="[10, 20, 50, 100]" solo dense flat color="primaryTextColor" background-color="secondaryBackgroundColor" hide-details/>
+            <v-select class="item-length" v-model="dataTable.itemLength" :items="[10, 20, 50, 100]" solo dense flat color="primary" background-color="secondaryBackgroundColor" hide-details/>
             <span class="px-0" md="auto" sm="auto" cols="auto">per page</span>
           </div>
           <v-pagination v-if="(dataTable.totalPages > 0)" class="flex-md-grow-0 flex-sm-grow-0 flex-grow-1 justify-center py-2" v-model="dataTable.currentPage" :length="dataTable.totalPages" :total-visible="7"></v-pagination>

@@ -11,7 +11,8 @@ export default new Vuetify({
     themes: {
       light: {
         primary: '#376BFA',
-        primaryTextColor: '#376BFA',
+        primaryTextColor: '#FFFFFF',
+        secondaryTextColor: '#000000de',
         primaryBackgroundColor: '#FFFFFF',
         secondaryBackgroundColor: '#F3F5F8',
         error: '#FF726F'
@@ -19,6 +20,7 @@ export default new Vuetify({
       dark: {
         primary: '#376BFA',
         primaryTextColor: '#FFFFFF',
+        secondaryTextColor: '#FFFFFF',
         primaryBackgroundColor: '#293143',
         secondaryBackgroundColor: '#252736',
         error: '#FF726F'

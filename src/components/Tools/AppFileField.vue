@@ -6,7 +6,7 @@
           <v-icon class="primary--text px-4">mdi-file</v-icon>
           <div class="text-md-left py-4 px-2 pl-md-0">
             <p class="ma-0 text-body-1">Added File</p>
-            <p class="ma-0 primaryTextColor--text">{{ file.model.name }}</p>
+            <p class="ma-0 primary--text">{{ file.model.name }}</p>
           </div>
           <v-spacer/>
           <div class="d-flex flex-column flex-md-row">

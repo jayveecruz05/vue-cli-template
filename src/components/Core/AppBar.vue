@@ -5,7 +5,7 @@
     <v-switch v-model="isDarkMode" inset hide-details label="Dark Mode"></v-switch>
     <v-menu offset-y nudge-bottom="5" min-width="160px">
       <template v-slot:activator="{ on }">
-        <v-btn class="ml-3 mr-2" v-on="on" outlined fab icon small color="#2F80ED">
+        <v-btn class="ml-3 mr-2" v-on="on" outlined fab icon small color="primary">
           <v-icon>person</v-icon>
         </v-btn>
       </template>

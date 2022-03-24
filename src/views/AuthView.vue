@@ -4,12 +4,12 @@
       <v-container fluid class="fill-height align-center justify-center pa-5">
         <v-card width="840" color="primaryBackgroundColor">
           <v-container>
-            <v-row align="center" justify="center">
-              <v-col md="6" cols="12">
+            <v-row align="stretch" justify="center">
+              <v-col class="d-flex flex-column justify-center" md="6" cols="12">
                 <div id="auth-view-image" v-html="require(`!html-loader!@/assets/img/auth-view-image.svg`)"></div>
               </v-col>
               <v-col md="6" cols="12">
-                <router-view/>
+                <router-view class="fill-height d-flex flex-column justify-center"/>
               </v-col>
             </v-row>
           </v-container>

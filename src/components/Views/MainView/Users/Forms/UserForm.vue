@@ -9,7 +9,7 @@
       </v-tooltip>
       <v-card-title class="font-weight-bold">
         <span>{{ `${((action == 'view') ? 'View' : (action == 'edit') ? 'Edit' : 'New')}` }} User</span>
-        <!-- <v-tabs v-model="tab" color="primaryTextColor">
+        <!-- <v-tabs v-model="tab" color="primary">
           <v-tab class="text-capitalize">Details</v-tab>
           <v-tab class="text-capitalize">Roles</v-tab>
         </v-tabs> -->
@@ -20,30 +20,30 @@
             <v-tab-item> -->
               <v-row>
                 <v-col class="py-0" cols="12">
-                  <v-text-field v-model="formData.user_name" label="User Name" autocomplete="off" color="primaryTextColor" flat outlined dense clearable :rules="[$validate.rules.required]" :disabled="(action == 'view' || formData.loading)"/>
+                  <v-text-field v-model="formData.user_name" label="User Name" autocomplete="off" color="primary" flat outlined dense clearable :rules="[$validate.rules.required]" :disabled="(action == 'view' || formData.loading)"/>
                 </v-col>
                 <v-col class="py-0" md="6" cols="12">
-                  <v-text-field v-model="formData.first_name" label="First Name" autocomplete="off" color="primaryTextColor" flat outlined dense clearable :rules="[$validate.rules.required]" :disabled="(action == 'view' || formData.loading)" @keypress="$validate.lettersOnly"/>
+                  <v-text-field v-model="formData.first_name" label="First Name" autocomplete="off" color="primary" flat outlined dense clearable :rules="[$validate.rules.required]" :disabled="(action == 'view' || formData.loading)" @keypress="$validate.lettersOnly"/>
                 </v-col>
                 <v-col class="py-0" md="6" cols="12">
-                  <v-text-field v-model="formData.last_name" label="Last Name" autocomplete="off" color="primaryTextColor" flat outlined dense clearable :rules="[$validate.rules.required]" :disabled="(action == 'view' || formData.loading)" @keypress="$validate.lettersOnly"/>
+                  <v-text-field v-model="formData.last_name" label="Last Name" autocomplete="off" color="primary" flat outlined dense clearable :rules="[$validate.rules.required]" :disabled="(action == 'view' || formData.loading)" @keypress="$validate.lettersOnly"/>
                 </v-col>
                 <v-col class="py-0" md="6" cols="12">
-                  <v-text-field v-model="formData.mobile_number" label="Mobile Number" autocomplete="off" color="primaryTextColor" flat outlined dense clearable :rules="[$validate.rules.required, $validate.rules.mobileNumber]" :disabled="(action == 'view' || formData.loading)" type="tel" prefix="+63" maxlength="10" counter="10" @keypress="$validate.numbersOnly"/>
+                  <v-text-field v-model="formData.mobile_number" label="Mobile Number" autocomplete="off" color="primary" flat outlined dense clearable :rules="[$validate.rules.required, $validate.rules.mobileNumber]" :disabled="(action == 'view' || formData.loading)" type="tel" prefix="+63" maxlength="10" counter="10" @keypress="$validate.numbersOnly"/>
                 </v-col>
                 <v-col class="py-0" md="6" cols="12">
-                  <v-text-field v-model="formData.email" label="Email" autocomplete="off" color="primaryTextColor" flat outlined dense clearable :rules="[$validate.rules.required, $validate.rules.email]" :disabled="(action == 'view' || formData.loading)"/>
+                  <v-text-field v-model="formData.email" label="Email" autocomplete="off" color="primary" flat outlined dense clearable :rules="[$validate.rules.required, $validate.rules.email]" :disabled="(action == 'view' || formData.loading)"/>
                 </v-col>
                 <v-col v-if="(action == 'add')" class="py-0" md="6" cols="12">
-                  <v-text-field v-model="formData.password" label="Password" color="primaryTextColor" flat outlined dense clearable :rules="[$validate.rules.required]" :disabled="(formData.loading)" :type="((showPassword) ? 'text' : 'password')" :append-icon="((showPassword) ? 'mdi-eye' : 'mdi-eye-off')" @click:append="showPassword = !showPassword"/>
+                  <v-text-field v-model="formData.password" label="Password" color="primary" flat outlined dense clearable :rules="[$validate.rules.required]" :disabled="(formData.loading)" :type="((showPassword) ? 'text' : 'password')" :append-icon="((showPassword) ? 'mdi-eye' : 'mdi-eye-off')" @click:append="showPassword = !showPassword"/>
                 </v-col>
                 <v-col v-if="(action == 'add')" class="py-0" md="6" cols="12">
-                  <v-text-field v-model="formData.confirm_password" label="Confirm Password" color="primaryTextColor" flat outlined dense clearable :rules="[$validate.rules.required]" :error-messages="((formData.password && formData.confirm_password) && (formData.confirm_password != formData.password)) ? 'Passwords don\'t match.' : ''" :disabled="(formData.loading)" :type="((showConfrimPassword) ? 'text' : 'password')" :append-icon="((showConfrimPassword) ? 'mdi-eye' : 'mdi-eye-off')" @click:append="showConfrimPassword = !showConfrimPassword"/>
+                  <v-text-field v-model="formData.confirm_password" label="Confirm Password" color="primary" flat outlined dense clearable :rules="[$validate.rules.required]" :error-messages="((formData.password && formData.confirm_password) && (formData.confirm_password != formData.password)) ? 'Passwords don\'t match.' : ''" :disabled="(formData.loading)" :type="((showConfrimPassword) ? 'text' : 'password')" :append-icon="((showConfrimPassword) ? 'mdi-eye' : 'mdi-eye-off')" @click:append="showConfrimPassword = !showConfrimPassword"/>
                 </v-col>
                 <v-col class="py-0" cols="12">
-                  <v-select v-model="formData.roles" :items="roleList" label="Roles" color="primaryTextColor" flat outlined multiple small-chips deletable-chips hide-selected clearable :menu-props="{ top: true, offsetY: true }" :rules="[$validate.rules.requiredList]" :disabled="(action == 'view' || formData.loading)">
+                  <v-select v-model="formData.roles" :items="roleList" label="Roles" color="primary" flat outlined multiple small-chips deletable-chips hide-selected clearable :menu-props="{ top: true, offsetY: true }" :rules="[$validate.rules.requiredList]" :disabled="(action == 'view' || formData.loading)">
                     <template v-slot:selection="{ item, parent, selected }">
-                      <v-chip :input-value="selected" label small class="white--text" color="primary" @click.native.stop>
+                      <v-chip :input-value="selected" label small class="primaryTextColor--text" color="primary" @click.native.stop>
                         <span class="pr-2">{{ item }}</span>
                         <v-icon small right @click="parent.selectItem(item)">mdi-close</v-icon>
                       </v-chip>
@@ -51,9 +51,9 @@
                   </v-select>
                 </v-col>
                 <v-col class="py-0" md="6" cols="12">
-                  <v-select v-model="formData.sites" :items="siteList" label="Sites" color="primaryTextColor" flat outlined multiple small-chips deletable-chips hide-selected clearable :menu-props="{ top: true, offsetY: true }" :rules="[$validate.rules.requiredList]" :disabled="(action == 'view' || formData.loading)">
+                  <v-select v-model="formData.sites" :items="siteList" label="Sites" color="primary" flat outlined multiple small-chips deletable-chips hide-selected clearable :menu-props="{ top: true, offsetY: true }" :rules="[$validate.rules.requiredList]" :disabled="(action == 'view' || formData.loading)">
                     <template v-slot:selection="{ item, parent, selected }">
-                      <v-chip :input-value="selected" label small class="white--text" color="primary" @click.native.stop>
+                      <v-chip :input-value="selected" label small class="primaryTextColor--text" color="primary" @click.native.stop>
                         <span class="pr-2">{{ item }}</span>
                         <v-icon small right @click="parent.selectItem(item)">mdi-close</v-icon>
                       </v-chip>
@@ -67,7 +67,7 @@
                   <v-switch v-model="formData.confirmed" class="mt-0 ml-1" inset label="Confirmed" :disabled="(action == 'view' || formData.loading)" hide-details/>
                 </v-col> -->
                 <v-col class="py-0" md="6" cols="12">
-                  <v-select v-model="formData.commission" :items="Array.from({length: 99}, (_, i) => `${i + 1}%`)" label="Percent Commission (Optional)" color="primaryTextColor" flat outlined clearable :disabled="(action == 'view' || formData.loading)"/>
+                  <v-select v-model="formData.commission" :items="Array.from({length: 99}, (_, i) => `${i + 1}%`)" label="Percent Commission (Optional)" color="primary" flat outlined clearable :disabled="(action == 'view' || formData.loading)"/>
                 </v-col>
                 <v-col class="py-0" cols="12">
                   <app-file-field v-model="formData.image" :rules="[$validate.rules.required]" :disabled="(action == 'view' || formData.loading)"/>
@@ -85,7 +85,7 @@
             <v-btn text block @click="clearForm" :disabled="(formData.loading)">Clear All</v-btn>
           </v-col> -->
           <v-col md="2" cols="12" class="px-2">
-            <v-btn block depressed dark color="#376BFA" :loading="(formData.loading)" @click="addUpdate">{{ `${(action == 'edit') ? 'Update' : 'Add'}` }}</v-btn>
+            <v-btn class="primaryTextColor--text" block depressed color="primary" :loading="(formData.loading)" @click="addUpdate">{{ `${(action == 'edit') ? 'Update' : 'Add'}` }}</v-btn>
           </v-col>
         </v-row>
       </v-card-actions>

@@ -12,7 +12,7 @@ export default new Vuetify({
       light: {
         primary: '#376BFA',
         primaryTextColor: '#FFFFFF',
-        secondaryTextColor: '#000000de',
+        secondaryTextColor: '#000000',
         primaryBackgroundColor: '#FFFFFF',
         secondaryBackgroundColor: '#F3F5F8',
         error: '#FF726F'

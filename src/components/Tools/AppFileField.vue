@@ -1,27 +1,25 @@
 <template>
   <v-text-field class="app-file-field" autocomplete="off" type="file" :accept="accept" solo flat outlined :height="height" :disabled="disabled" :error-messages="file.error" :rules="((file.model) ? [] : rules)" @input.native="inputFile">
     <slot slot="prepend-inner">
-      <v-card v-if=(file.model) class="pa-5" flat color="transparent" width="100%" :disabled="disabled">
-        <v-card-text class="file-holder flex-column flex-md-row">
-          <v-icon class="primary--text px-4">mdi-file</v-icon>
-          <div class="text-md-left py-4 px-2 pl-md-0">
+      <div v-if=(file.model) class="wrapper flex-column flex-md-row pa-5">
+        <div class="file-holder flex-column flex-md-row align-center">
+          <v-icon>mdi-file</v-icon>
+          <div class="text-center text-md-left pa-4">
             <p class="ma-0 text-body-1">Added File</p>
-            <p class="ma-0 primary--text">{{ file.model.name }}</p>
+            <p class="ma-0 text-body-2">{{ file.model.name }}</p>
           </div>
-          <v-spacer/>
-          <div class="d-flex flex-column flex-md-row">
-            <v-btn class="ma-2" outlined>Replace file</v-btn>
-          </div>
-        </v-card-text>
-      </v-card>
-      <v-card v-else class="pa-5" flat color="transparent" :disabled="disabled">
-        <v-card-text class="text-center">
-          <v-icon class="primary--text">mdi-file</v-icon>
-        </v-card-text>
-        <v-card-actions>
-          <v-btn class="primary--text" rounded outlined>Upload File</v-btn>
-        </v-card-actions>
-      </v-card>
+        </div>
+        <div class="fill-width d-flex flex-column flex-md-row">
+          <v-btn class="ma-2" outlined>Replace file</v-btn>
+        </div>
+      </div>
+      <div v-else class="wrapper flex-column flex-md-row pa-5">
+        <div class="d-flex flex-column flex-md-row align-center">
+          <v-icon>mdi-file</v-icon>
+          <span class="text-center text-body-1 pa-4">Drag and Drop file or Browse</span>
+        </div>
+        <v-btn class="ma-2" outlined>Upload File</v-btn>
+      </div>
     </slot>
   </v-text-field>
 </template>
@@ -120,7 +118,6 @@
     .v-input__slot {
       padding: 0 !important;
       overflow: hidden;
-      background-color: var(--v-secondaryBackgroundColor-base) !important;
 
       .v-input__prepend-inner {
         width: 100%;
@@ -130,13 +127,20 @@
         justify-content: center;
         align-items: center;
 
-        .file-holder {
+        .wrapper {
           display: flex;
           align-items: center;
-          z-index: 0;
+          justify-content: space-between;
+          width: 100%;
 
-          .top {
-            z-index: 1;
+          .file-holder {
+            display: flex;
+            align-items: center;
+            z-index: 0;
+
+            .top {
+              z-index: 1;
+            }
           }
         }
 
@@ -167,6 +171,13 @@
 
         .v-icon {
           font-size: 50px;
+          caret-color: inherit;
+          color: inherit;
+        }
+
+        .v-btn {
+          caret-color: inherit;
+          color: inherit;
         }
       }
 

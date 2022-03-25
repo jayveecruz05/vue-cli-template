@@ -55,6 +55,7 @@
           -webkit-hyphens: auto;
           -moz-hyphens: auto;
           hyphens: auto;
+          white-space: pre-wrap;
         }
       }
 

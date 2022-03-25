@@ -152,6 +152,10 @@
     .v-input__control {
       // min-height: inherit;
     }
+
+    .v-messages__message {
+      white-space: pre-wrap;
+    }
   }
 
   .v-select {

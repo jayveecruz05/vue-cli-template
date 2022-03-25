@@ -658,5 +658,9 @@
     .v-alert__icon {
       align-self: center;
     }
+
+    .v-alert__content {
+      white-space: pre-wrap;
+    }
   }
 }

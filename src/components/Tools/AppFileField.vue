@@ -107,7 +107,9 @@
       },
       clear() {
         this.$refs?.appFileField?.clearableCallback();
-        this.file = { model: undefined, content: undefined, error: undefined };
+        this.file.error = undefined;
+        this.file.model = undefined;
+        this.file.content = undefined;
         this.$emit('input', this.file);
       }
     },

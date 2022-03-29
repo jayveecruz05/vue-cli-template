@@ -70,7 +70,7 @@
                   <v-select v-model="formData.commission" :items="Array.from({length: 99}, (_, i) => `${i + 1}%`)" label="Percent Commission (Optional)" color="primary" flat outlined clearable :disabled="(action == 'view' || formData.loading)"/>
                 </v-col>
                 <v-col class="py-0" cols="12">
-                  <app-file-field v-model="formData.image" :rules="[$validate.rules.required]" :disabled="(action == 'view' || formData.loading)"/>
+                  <app-file-field v-model="formData.image" color="primary" clearable :rules="[$validate.rules.required]" :disabled="(action == 'view' || formData.loading)"/>
                 </v-col>
               </v-row>
             <!-- </v-tab-item>

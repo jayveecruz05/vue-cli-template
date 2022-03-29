@@ -1,26 +1,31 @@
 <template>
-  <v-text-field class="app-file-field" autocomplete="off" type="file" :accept="accept" solo flat outlined :height="height" :disabled="disabled" :error-messages="file.error" :rules="((file.model) ? [] : rules)" @input.native="inputFile">
-    <slot slot="prepend-inner">
-      <div v-if=(file.model) class="wrapper flex-column flex-md-row pa-5">
-        <div class="file-holder flex-column flex-md-row align-center">
-          <v-icon>mdi-file</v-icon>
-          <div class="text-center text-md-left pa-4">
-            <p class="ma-0 text-body-1">Added File</p>
-            <p class="ma-0 text-body-2">{{ file.model.name }}</p>
+  <v-text-field class="app-file-field" ref="appFileField" autocomplete="off" type="file" :accept="accept" solo flat outlined :color="color" :height="height" :disabled="disabled" :error-messages="file.error" :rules="((file.model) ? [] : rules)" @input.native="inputFile">
+    <template v-slot:prepend-inner>
+      <v-icon v-if="(clearable && file.model)" class="clear" @click="clear">mdi-close</v-icon>
+      <slot v-if=(!file.model) name="file-input">
+        <div class="wrapper flex-column flex-md-row pa-5">
+          <div class="d-flex flex-column flex-md-row align-center">
+            <v-icon class="file-icon">mdi-file</v-icon>
+            <span class="text-center text-body-1 pa-4">Drag and Drop file or Browse</span>
+          </div>
+          <v-btn class="ma-2" outlined>Upload File</v-btn>
+        </div>
+      </slot>
+      <slot v-else name="file-output">
+        <div class="wrapper flex-column flex-md-row pa-5">
+          <div class="file-holder flex-column flex-md-row align-center">
+            <v-icon class="file-icon">mdi-file</v-icon>
+            <div class="text-center text-md-left pa-4">
+              <p class="ma-0 text-body-1">Added File</p>
+              <p class="ma-0 text-body-2">{{ file.model.name }}</p>
+            </div>
+          </div>
+          <div class="fill-width d-flex flex-column flex-md-row">
+            <v-btn class="ma-2" outlined>Replace file</v-btn>
           </div>
         </div>
-        <div class="fill-width d-flex flex-column flex-md-row">
-          <v-btn class="ma-2" outlined>Replace file</v-btn>
-        </div>
-      </div>
-      <div v-else class="wrapper flex-column flex-md-row pa-5">
-        <div class="d-flex flex-column flex-md-row align-center">
-          <v-icon>mdi-file</v-icon>
-          <span class="text-center text-body-1 pa-4">Drag and Drop file or Browse</span>
-        </div>
-        <v-btn class="ma-2" outlined>Upload File</v-btn>
-      </div>
-    </slot>
+      </slot>
+    </template>
   </v-text-field>
 </template>
 
@@ -38,6 +43,8 @@
       fileSize: { type: Number, default: undefined, required: false },
       rules: { type: Array, default: () => ([]), required: false },
       height: { type: [ String, Number ], default: '', required: false },
+      color: { type: String, default: 'primary', required: false },
+      clearable: { type: Boolean, default: false, required: false },
       disabled: { type: Boolean, default: false, required: false }
     },
     data() {
@@ -97,6 +104,11 @@
             this.$emit('input', this.file);
           }
         }
+      },
+      clear() {
+        this.$refs?.appFileField?.clearableCallback();
+        this.file = { model: undefined, content: undefined, error: undefined };
+        this.$emit('input', this.file);
       }
     },
     created() {}
@@ -113,6 +125,68 @@
           border-width: 1.5px;
         }
       }
+    }
+
+    &.v-input--is-focused, &.error--text {
+      .v-input__slot {
+        .v-input__prepend-inner {
+          .v-icon {
+            caret-color: inherit;
+            color: inherit;
+          }
+
+          .v-btn {
+            caret-color: inherit;
+            color: inherit;
+          }
+        }
+      }
+    }
+
+    &.theme--light {
+      &.v-input {
+        caret-color: rgba(0, 0, 0, 0.54);
+        color: rgba(0, 0, 0, 0.54);
+      }
+
+      .v-icon {
+        caret-color: rgba(0, 0, 0, 0.54);
+        color: rgba(0, 0, 0, 0.54);
+      }
+
+      .v-btn {
+        caret-color: rgba(0, 0, 0, 0.54);
+        color: rgba(0, 0, 0, 0.54);
+      }
+    }
+
+    &.theme--dark {
+      &.v-input {
+        caret-color: #FFFFFF;
+        color: #FFFFFF;
+      }
+
+      .v-icon {
+        caret-color: #FFFFFF;
+        color: #FFFFFF;
+      }
+
+      .v-btn {
+        caret-color: #FFFFFF;
+        color: #FFFFFF;
+      }
+    }
+
+    &.v-input {
+      transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .v-icon {
+      transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .v-btn {
+      transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
 
     .v-input__slot {
@@ -136,11 +210,6 @@
           .file-holder {
             display: flex;
             align-items: center;
-            z-index: 0;
-
-            .top {
-              z-index: 1;
-            }
           }
         }
 
@@ -169,15 +238,20 @@
           z-index: 1;
         }
 
-        .v-icon {
-          font-size: 50px;
-          caret-color: inherit;
-          color: inherit;
+        .z-index-top {
+          z-index: 1;
         }
 
-        .v-btn {
-          caret-color: inherit;
-          color: inherit;
+        .file-icon {
+          font-size: 50px;
+        }
+
+        .clear {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          font-size: 24px;
+          z-index: 1;
         }
       }
 

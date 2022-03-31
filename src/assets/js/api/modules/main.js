@@ -4,9 +4,9 @@ import api from '../index';
 
 export default {
   getData(payload) {
-    const { to, config, apiCancelToken } = payload || {};
+    const { url, config, apiCancelToken } = payload || {};
     return new Promise((resolve, reject) => {
-      api.main.get({ url: `${to || ''}`, config, apiCancelToken }).then(
+      api.main.get({ url, config, apiCancelToken }).then(
         (response) => {
           // console.log(response);
           resolve(response.data);
@@ -20,9 +20,9 @@ export default {
     });
   },
   postData(payload) {
-    const { to, data, config, apiCancelToken } = payload || {};
+    const { url, data, config, apiCancelToken } = payload || {};
     return new Promise((resolve, reject) => {
-      api.main.post({ url: `${to || ''}`, data, config, apiCancelToken }).then(
+      api.main.post({ url, data, config, apiCancelToken }).then(
         (response) => {
           // console.log(response);
           resolve(response.data);
@@ -36,9 +36,9 @@ export default {
     });
   },
   putData(payload) {
-    const { to, data, config, apiCancelToken } = payload || {};
+    const { url, data, config, apiCancelToken } = payload || {};
     return new Promise((resolve, reject) => {
-      api.main.put({ url: `${to || ''}`, data, config, apiCancelToken }).then(
+      api.main.put({ url, data, config, apiCancelToken }).then(
         (response) => {
           // console.log(response);
           resolve(response.data);
@@ -52,9 +52,9 @@ export default {
     });
   },
   deleteData(payload) {
-    const { to, config, apiCancelToken } = payload || {};
+    const { url, config, apiCancelToken } = payload || {};
     return new Promise((resolve, reject) => {
-      api.main.delete({ url: `${to || ''}`, config, apiCancelToken }).then(
+      api.main.delete({ url, config, apiCancelToken }).then(
         (response) => {
           // console.log(response);
           resolve(response.data);

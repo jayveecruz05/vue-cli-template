@@ -1,6 +1,6 @@
 'use strict';
 
-import template from '@/assets/js/api/modules/template';
+import api from '@/assets/js/api/modules/main';
 
 export default {
   namespaced: true,
@@ -28,7 +28,7 @@ export default {
     fetchTemplate(context, payload) {
       const { config, apiCancelToken } = payload || {};
       return new Promise((resolve, reject) => {
-        template.getData({ to: '/template', config, apiCancelToken }).then(
+        api.getData({ url: '/template', config, apiCancelToken }).then(
           (response) => {
             // console.log(response);
             context.commit('SET_TEMPLATE_LIST', response.data);
@@ -46,7 +46,7 @@ export default {
     findTemplate(context, payload) {
       const { config, apiCancelToken } = payload || {};
       return new Promise((resolve, reject) => {
-        template.getData({ to: '/template', config, apiCancelToken }).then(
+        api.getData({ url: '/template', config, apiCancelToken }).then(
           (response) => {
             // console.log(response);
             context.commit('SET_TEMPLATE_DETAILS', response.data);
@@ -64,7 +64,7 @@ export default {
     addTemplate(context, payload) {
       const { data, config, apiCancelToken } = payload || {};
       return new Promise((resolve, reject) => {
-        template.postData({ to: '/template', data, config, apiCancelToken }).then(
+        api.postData({ url: '/template', data, config, apiCancelToken }).then(
           (response) => {
             // console.log(response);
             resolve(response);
@@ -81,7 +81,7 @@ export default {
     setTemplate(context, payload) {
       const { data, config, apiCancelToken } = payload || {};
       return new Promise((resolve, reject) => {
-        template.putData({ to: '/template', data, config, apiCancelToken }).then(
+        api.putData({ url: '/template', data, config, apiCancelToken }).then(
           (response) => {
             // console.log(response);
             resolve(response);
@@ -98,7 +98,7 @@ export default {
     deleteTemplate(context, payload) {
       const { config, apiCancelToken } = payload || {};
       return new Promise((resolve, reject) => {
-        template.deleteData({ to: '/template', config, apiCancelToken }).then(
+        api.deleteData({ url: '/template', config, apiCancelToken }).then(
           (response) => {
             // console.log(response);
             resolve(response);

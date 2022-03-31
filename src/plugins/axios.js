@@ -7,7 +7,7 @@ import Vue from 'vue';
 import Axios from 'axios';
 
 const api = (instanceConfig) => {
-  const { baseURL, headers } = instanceConfig || {};
+  const { baseURL = '', headers = {} } = instanceConfig || {};
 
   const vm = new Vue({ name: 'app-api' });
   

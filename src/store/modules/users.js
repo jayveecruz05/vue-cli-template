@@ -1,6 +1,6 @@
 'use strict';
 
-import api from '@/assets/js/api/modules/main';
+import mainApi from '@/assets/js/api/modules/main';
 
 export default {
   namespaced: true,
@@ -28,7 +28,7 @@ export default {
     fetchUsers(context, payload) {
       const { config, apiCancelToken } = payload || {};
       return new Promise((resolve, reject) => {
-        api.getData({ url: '/users', config, apiCancelToken }).then(
+        mainApi.getData({ url: '/users', config, apiCancelToken }).then(
           (response) => {
             // console.log(response);
             context.commit('SET_USERS_LIST', response.data);
@@ -47,7 +47,7 @@ export default {
     findUser(context, payload) {
       const { id, config, apiCancelToken } = payload || {};
       return new Promise((resolve, reject) => {
-        api.getData({ url: `/user/${id}`, config, apiCancelToken }).then(
+        mainApi.getData({ url: `/user/${id}`, config, apiCancelToken }).then(
           (response) => {
             // console.log(response);
             context.commit('SET_USER_DETAILS', response.data);
@@ -66,7 +66,7 @@ export default {
     addUser(context, payload) {
       const { data, config, apiCancelToken } = payload || {};
       return new Promise((resolve, reject) => {
-        api.postData({ url: '/users', data, config, apiCancelToken }).then(
+        mainApi.postData({ url: '/users', data, config, apiCancelToken }).then(
           (response) => {
             // console.log(response);
             resolve(response);
@@ -83,7 +83,7 @@ export default {
     setUser(context, payload) {
       const { data, config, apiCancelToken } = payload || {};
       return new Promise((resolve, reject) => {
-        api.putData({ url: '/users', data, config, apiCancelToken }).then(
+        mainApi.putData({ url: '/users', data, config, apiCancelToken }).then(
           (response) => {
             // console.log(response);
             resolve(response);
@@ -100,7 +100,7 @@ export default {
     deleteUser(context, payload) {
       const { config, apiCancelToken } = payload || {};
       return new Promise((resolve, reject) => {
-        api.deleteData({ url: '/users', config, apiCancelToken }).then(
+        mainApi.deleteData({ url: '/users', config, apiCancelToken }).then(
           (response) => {
             // console.log(response);
             resolve(response);

@@ -1,6 +1,6 @@
 'use strict';
 
-// import api from '@/assets/js/api/modules/main';
+// import mainApi from '@/assets/js/api/modules/main';
 
 export default {
   namespaced: true,
@@ -34,7 +34,7 @@ export default {
         const token = window.btoa(Math.floor(Math.random() * Date.now()).toString(36).substr(2)); // Encode To Base64
         context.commit('SET_TOKEN', token);
         resolve({ token });
-        // api.postData({ url: '/auth', data, config, apiCancelToken }).then(
+        // mainApi.postData({ url: '/auth', data, config, apiCancelToken }).then(
         //   (response) => {
         //     // console.log(response);
         //     context.commit('SET_TOKEN', response.token);
@@ -52,7 +52,7 @@ export default {
     // fetchUserInfo(context, payload) {
     //   const { config, apiCancelToken } = payload || {};
     //   return new Promise((resolve, reject) => {
-    //     api.getData({ url: '/auth/me', config, apiCancelToken }).then(
+    //     mainApi.getData({ url: '/auth/me', config, apiCancelToken }).then(
     //       (response) => {
     //         // console.log(response);
     //         context.commit('SET_USER_INFO', response.data);

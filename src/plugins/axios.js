@@ -82,7 +82,7 @@ const api = (instanceConfig) => {
       }
     },
     get(payload) {
-      const { url, config, apiCancelToken = generateApiCancelToken() } = payload || {};
+      const { url = '', config = {}, apiCancelToken = generateApiCancelToken() } = payload || {};
       return new Promise((resolve, reject) => {
         axiosInstance.get(url, {
           ...config,
@@ -103,7 +103,7 @@ const api = (instanceConfig) => {
       });
     },
     post(payload) {
-      const { url, data, config, apiCancelToken = generateApiCancelToken() } = payload || {};
+      const { url = '', data = {}, config = {}, apiCancelToken = generateApiCancelToken() } = payload || {};
       return new Promise((resolve, reject) => {
         axiosInstance.post(url, data, {
           ...config,
@@ -124,7 +124,7 @@ const api = (instanceConfig) => {
       });
     },
     put(payload) {
-      const { url, data, config, apiCancelToken = generateApiCancelToken() } = payload || {};
+      const { url = '', data = {}, config = {}, apiCancelToken = generateApiCancelToken() } = payload || {};
       return new Promise((resolve, reject) => {
         axiosInstance.put(url, data, {
           ...config,
@@ -145,7 +145,7 @@ const api = (instanceConfig) => {
       });
     },
     delete(payload) {
-      const { url, config, apiCancelToken = generateApiCancelToken() } = payload || {};
+      const { url = '', config = {}, apiCancelToken = generateApiCancelToken() } = payload || {};
       return new Promise((resolve, reject) => {
         axiosInstance.delete(url, {
           ...config,

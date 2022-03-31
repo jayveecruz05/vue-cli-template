@@ -38,7 +38,7 @@ const api = (instanceConfig) => {
   axiosInstance.interceptors.response.use(
     (response) => {
       // console.log(response);
-      vm.$eventBus.$emit('progress', 'success'); // Finish when a response is received
+      if (Object.keys(apiCallList).length <= 1) { vm.$eventBus.$emit('progress', 'success'); } // Finish when a response is received
       return response;
     },
     (error) => {

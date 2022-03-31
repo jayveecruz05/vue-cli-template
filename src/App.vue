@@ -66,8 +66,8 @@
         this.$store.dispatch('clearState');
         this.$cookies.remove('token');
         this.$api.main.setAuthorization(undefined);
-        this.$router.push({ name: 'login' });
         window.localStorage.setItem('isLogin', false);
+        this.$router.push({ name: 'login' });
       }
     },
     created() {

@@ -44,9 +44,9 @@
             (response) => {
               // console.log(response);
               if (response.token) {
-                window.localStorage.setItem('isLogin', true);
                 this.$cookies.set('token', window.btoa(response.token)); // Encode To Base64
                 this.$api.main.setAuthorization(response.token);
+                window.localStorage.setItem('isLogin', true);
                 this.redirect();
               }
             }

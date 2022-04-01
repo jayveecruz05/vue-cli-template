@@ -307,28 +307,31 @@
 
       // Modify default styling for sort headers
       @media #{map-get($display-breakpoints, 'sm-and-down')} {
-        th {
-          padding: 0 !important;
+        .v-data-table-header.v-data-table-header-mobile {
+          th {
+            padding: 0 !important;
 
-          .v-data-table-header-mobile__wrapper {
-            .v-input__slot {
-              border-radius: 4px;
-              padding: 5px 10px;
-              &::before,
-              &::after {
-                border: none;
-              }
-            }
-            .v-input--is-dirty,
-            .v-input--is-focused {
-              .v-select__selections {
-                padding: 5px 0 0;
-              }
+            .v-data-table-header-mobile__wrapper {
               .v-input__slot {
-                padding: 20px 10px 10px;
+                border-radius: 4px;
+                padding: 5px 10px;
 
-                .v-icon {
-                  opacity: 1;
+                &::before, &::after {
+                  border: none;
+                }
+              }
+
+              .v-input--is-dirty, .v-input--is-focused {
+                .v-select__selections {
+                  padding: 5px 0 0;
+                }
+
+                .v-input__slot {
+                  padding: 20px 10px 10px;
+
+                  .v-icon {
+                    opacity: 1;
+                  }
                 }
               }
             }

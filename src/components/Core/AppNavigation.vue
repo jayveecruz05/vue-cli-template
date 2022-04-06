@@ -13,21 +13,46 @@
     </template>
 
     <v-list class="v-list-navigation" dense>
-      <router-link class="router-link" v-for="(item, key) in navigationList" :key="key" :to="{ name: item.to }" :exact="(item.to == 'dashboard')">
-        <v-tooltip right>
-          <template v-slot:activator="{ on }">
-            <v-list-item link v-on="on">
-              <v-list-item-icon>
-                <div v-if="(item.icon)" class="v-icon v-icon-fill" v-html="require(`!html-loader!@/assets/img/${item.icon}.svg`)"></div>
+      <v-tooltip v-for="(nav, navKey) in navigationList" :key="navKey" right>
+        <template v-slot:activator="{ on }">
+          <v-list-group v-if="(nav.child && Array.isArray(nav.child) && nav.child.length > 0)" :class="['nav-group', { 'group-active': nav.child.some(navChild => navChild.to == $route.name) }]" v-on="on" :value="nav.child.some(navChild => navChild.to == $route.name)" append-icon="mdi-menu-down">
+            <template v-slot:activator>
+                <v-list-item-icon class="nav-icon">
+                  <div v-if="nav.icon" class="v-icon v-icon-fill" v-html="require(`!html-loader!@/assets/img/${nav.icon}.svg`)"></div>
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title>{{ nav.title }}</v-list-item-title>
+                </v-list-item-content>
+            </template>
+            <v-tooltip v-for="(navChild, navChildKey) in nav.child" :key="navChildKey" right>
+              <template v-slot:activator="{ on }">
+                <router-link class="router-link" :to="{ name: navChild.to }" :exact="(navChild.to == 'dashboard')">
+                  <v-list-item v-on="on" link>
+                    <v-list-item-icon class="nav-icon">
+                      <div v-if="(navChild.icon)" class="v-icon v-icon-fill" v-html="require(`!html-loader!@/assets/img/${navChild.icon}.svg`)"></div>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                      <v-list-item-title>{{ navChild.title }}</v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                </router-link>
+              </template>
+              <span>{{ navChild.title }}</span>
+            </v-tooltip>
+          </v-list-group>
+          <router-link v-else class="router-link" :to="{ name: nav.to }" :exact="(nav.to == 'dashboard')">
+            <v-list-item v-on="on" link>
+              <v-list-item-icon class="nav-icon">
+                <div v-if="(nav.icon)" class="v-icon v-icon-fill" v-html="require(`!html-loader!@/assets/img/${nav.icon}.svg`)"></div>
               </v-list-item-icon>
               <v-list-item-content>
-                <v-list-item-title>{{ item.title }}</v-list-item-title>
+                <v-list-item-title>{{ nav.title }}</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
-          </template>
-          <span>{{ item.title }}</span>
-        </v-tooltip>
-      </router-link>
+          </router-link>
+        </template>
+        <span>{{ nav.title }}</span>
+      </v-tooltip>
     </v-list>
 
     <!-- <template v-slot:append>
@@ -61,7 +86,14 @@
         temporaryDrawerPages: [],
         navigationList: [
           { title: 'Dashboard', to: 'dashboard', icon: 'dashboard' },
-          { title: 'Users', to: 'users', icon: 'users' }
+          {
+            title: 'Users',
+            to: 'users',
+            icon: 'users',
+            // child: [
+            //   { title: 'Users', to: 'users', icon: 'users' }
+            // ]
+          }
         ]
       };
     },
@@ -136,9 +168,10 @@
       padding: 0;
 
       .v-list-item {
-        padding: 5px 20px;
+        padding: 5px 18px;
+        transition: padding 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 
-        .v-list-item__icon {
+        .v-list-item__icon.nav-icon {
           margin-right: 20px;
 
           .v-icon {
@@ -254,13 +287,96 @@
           }
         }
       }
+
+      .v-list-group.nav-group {
+        .v-list-group__items {
+          .v-list-item {
+            padding-left: 26px;
+            border-left: none;
+
+            .v-list-item__icon {
+              margin-left: 0;
+            }
+          }
+        }
+
+        &.group-active {
+          .v-list-group__header {
+            border-left: 5px solid var(--v-primary-base);
+
+            &.theme--light {
+              border-left: 5px solid var(--v-primary-base);
+
+              .v-list-item__title {
+                color: rgba(0, 0, 0, 0.87);
+              }
+            }
+
+            &.theme--dark {
+              border-left: 5px solid var(--v-primary-base);
+
+              .v-list-item__title {
+                color: rgba(255, 255, 255, 0.87);
+              }
+            }
+
+            .v-list-item__title {
+              color: rgba(0, 0, 0, 0.87);
+            }
+
+            .v-list-item__icon {
+              margin-left: -5px;
+
+              .v-icon-fill {
+                svg {
+                  path {
+                    fill: var(--v-primary-base);
+                  }
+
+                  rect {
+                    fill: var(--v-primary-base);
+                  }
+
+                  circle {
+                    fill: var(--v-primary-base);
+                  }
+                }
+              }
+
+              .v-icon-stroke {
+                svg {
+                  path {
+                    stroke: var(--v-primary-base);
+                  }
+
+                  rect {
+                    stroke: var(--v-primary-base);
+                  }
+
+                  circle {
+                    stroke: var(--v-primary-base);
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
 
-    // .v-navigation-drawer--mini-variant {
-    //   #logo-holder #logo {
-    //     margin-left: 0;
-    //   }
-    // }
+    &.v-navigation-drawer--mini-variant {
+      // #logo-holder #logo {
+      //   margin-left: 0;
+      // }
+
+      .v-list-group.nav-group {
+        .v-list-group__items {
+          .v-list-item {
+            padding-left: 18px !important;
+          }
+        }
+      }
+    }
 
     .v-navigation-drawer {
       &__prepend {

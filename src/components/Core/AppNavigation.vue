@@ -17,8 +17,8 @@
         <template v-slot:activator="{ on }">
           <v-list-group v-if="(nav.child && Array.isArray(nav.child) && nav.child.length > 0)" :class="['nav-group', { 'group-active': nav.child.some(navChild => navChild.to == $route.name) }]" v-on="on" :value="nav.child.some(navChild => navChild.to == $route.name)" append-icon="mdi-menu-down">
             <template v-slot:activator>
-                <v-list-item-icon class="nav-icon">
-                  <div v-if="nav.icon" class="v-icon v-icon-fill" v-html="require(`!html-loader!@/assets/img/${nav.icon}.svg`)"></div>
+                <v-list-item-icon v-if="(nav.icon)" class="nav-icon">
+                  <div :class="['v-icon', `v-icon-${nav.iconType}`]" v-html="require(`!html-loader!@/assets/img/${nav.icon}.svg`)"></div>
                 </v-list-item-icon>
                 <v-list-item-content>
                   <v-list-item-title>{{ nav.title }}</v-list-item-title>
@@ -28,8 +28,8 @@
               <template v-slot:activator="{ on }">
                 <router-link class="router-link" :to="{ name: navChild.to }" :exact="(navChild.to == 'dashboard')">
                   <v-list-item v-on="on" link>
-                    <v-list-item-icon class="nav-icon">
-                      <div v-if="(navChild.icon)" class="v-icon v-icon-fill" v-html="require(`!html-loader!@/assets/img/${navChild.icon}.svg`)"></div>
+                    <v-list-item-icon v-if="(navChild.icon)" class="nav-icon">
+                      <div :class="['v-icon', `v-icon-${navChild.iconType}`]" v-html="require(`!html-loader!@/assets/img/${navChild.icon}.svg`)"></div>
                     </v-list-item-icon>
                     <v-list-item-content>
                       <v-list-item-title>{{ navChild.title }}</v-list-item-title>
@@ -42,8 +42,8 @@
           </v-list-group>
           <router-link v-else class="router-link" :to="{ name: nav.to }" :exact="(nav.to == 'dashboard')">
             <v-list-item v-on="on" link>
-              <v-list-item-icon class="nav-icon">
-                <div v-if="(nav.icon)" class="v-icon v-icon-fill" v-html="require(`!html-loader!@/assets/img/${nav.icon}.svg`)"></div>
+              <v-list-item-icon v-if="(nav.icon)" class="nav-icon">
+                <div :class="['v-icon', `v-icon-${nav.iconType}`]" v-html="require(`!html-loader!@/assets/img/${nav.icon}.svg`)"></div>
               </v-list-item-icon>
               <v-list-item-content>
                 <v-list-item-title>{{ nav.title }}</v-list-item-title>
@@ -85,13 +85,14 @@
         navigationDrawerMini: undefined,
         temporaryDrawerPages: [],
         navigationList: [
-          { title: 'Dashboard', to: 'dashboard', icon: 'dashboard' },
+          { title: 'Dashboard', icon: 'dashboard', iconType: 'fill', to: 'dashboard' },
           {
             title: 'Users',
-            to: 'users',
             icon: 'users',
+            iconType: 'fill',
+            to: 'users',
             // child: [
-            //   { title: 'Users', to: 'users', icon: 'users' }
+            //   { title: 'Users', icon: 'users', iconType: 'fill', to: 'users' }
             // ]
           }
         ]
@@ -172,7 +173,7 @@
         transition: padding 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 
         .v-list-item__icon.nav-icon {
-          margin-right: 20px;
+          margin-right: 15px;
 
           .v-icon {
             svg {

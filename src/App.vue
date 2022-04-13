@@ -56,7 +56,7 @@
         // Detect System Dark Mode
         // if (!!window && !!window.matchMedia && !window.localStorage.getItem('isDarkMode')) {
         //   isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        //   window.localStorage.setItem('isDarkMode', isDarkMode);
+        //   window.localStorage.setItem('isDarkMode', Number(isDarkMode));
         // } else {
         //   isDarkMode = !!Number(window.localStorage.getItem('isDarkMode'));
         // }
@@ -66,7 +66,7 @@
         this.$store.dispatch('clearState');
         this.$cookies.remove('token');
         this.$api.main.setAuthorization(undefined);
-        window.localStorage.setItem('isLogin', false);
+        window.localStorage.setItem('isLogin', 0);
         this.$router.push({ name: 'login' });
       }
     },

@@ -34,7 +34,7 @@
           switch(event.key) {
             case 'isLogin':
               setTimeout(() => {
-                if (JSON.parse(event.newValue)) {
+                if (Number(event.newValue)) {
                   this.$router.push({ name: 'main-view' });
                 } else {
                   this.clearData();
@@ -42,7 +42,7 @@
               }, 100);
               break;
             case 'isDarkMode':
-              this.$vuetify.theme.dark = JSON.parse(event.newValue);
+              this.$vuetify.theme.dark = !!Number(event.newValue);
               break;
           }
         });
@@ -52,13 +52,13 @@
         if (token) { this.$store.dispatch('authentication/setToken', token); }
       },
       setTheme() {
-        let isDarkMode = JSON.parse(window.localStorage.getItem('isDarkMode'));
+        let isDarkMode = !!Number(window.localStorage.getItem('isDarkMode'));
         // Detect System Dark Mode
         // if (!!window && !!window.matchMedia && !window.localStorage.getItem('isDarkMode')) {
         //   isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
         //   window.localStorage.setItem('isDarkMode', isDarkMode);
         // } else {
-        //   isDarkMode = JSON.parse(window.localStorage.getItem('isDarkMode'));
+        //   isDarkMode = !!Number(window.localStorage.getItem('isDarkMode'));
         // }
         this.$vuetify.theme.dark = isDarkMode;
       },

@@ -28,7 +28,7 @@
         get() { return this.$vuetify.theme.dark; },
         set(value) {
           this.$vuetify.theme.dark = value;
-          window.localStorage.setItem('isDarkMode', value);
+          window.localStorage.setItem('isDarkMode', Number(value));
         }
       }
     },

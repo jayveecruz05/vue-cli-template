@@ -131,19 +131,6 @@
     data() {
       return {
         dataTable: {
-          loading: true,
-          selected: [],
-          totalPages: 1,
-          filter: {
-            search: this.$route.query?.search || '',
-            status: this.$route.query?.status || '',
-            roleType: this.$route.query?.roleType || '',
-            dates: (this.$route.query?.dateFrom && this.$route.query?.dateTo) ? [this.$route.query.dateFrom, this.$route.query.dateTo] : null,
-            itemLength: parseInt(this.$route.query?.itemLength) || 10,
-            currentPage: parseInt(this.$route.query?.currentPage) || 1,
-            sortBy: [ ...((this.$route.query?.sortBy) ? [this.$route.query.sortBy] : []) ],
-            sortOrder: [ ...((this.$route.query?.sortOrder) ? [this.$route.query.sortOrder === 'desc'] : []) ]
-          },
           headers: [
             { text: 'User Name', value: 'user_name' },
             { text: 'Full Name', value: 'full_name', sort: (a, b) => String(a).localeCompare(String(b)) },
@@ -168,7 +155,20 @@
             { user_id: 'U2', user_name: 'jane', first_name: 'Jane', last_name: 'Doe', email: 'janedoe@yahoo.com', confirmed: false, mobile_number: '9667788990', roles: ['Admin'], last_update: '04/27/2018 17:13:00' },
             { user_id: 'U3', user_name: 'richard', first_name: 'Richard', last_name: 'Doe', email: 'richarddoe@yahoo.com', confirmed: true, mobile_number: '9123124562', roles: ['Super Admin', 'Admin'], last_update: '03/25/2020 12:13:00' },
             { user_id: 'U4', user_name: 'janie', first_name: 'Janie', last_name: 'Doe', email: 'janiedoe@yahoo.com', confirmed: false, mobile_number: '9109283081', roles: ['Admin'], last_update: '03/25/2019 11:13:00' },
-          ] || undefined
+          ],
+          loading: true,
+          selected: [],
+          totalPages: 1,
+          filter: {
+            search: this.$route.query?.search || '',
+            status: this.$route.query?.status || '',
+            roleType: this.$route.query?.roleType || '',
+            dates: (this.$route.query?.dateFrom && this.$route.query?.dateTo) ? [this.$route.query.dateFrom, this.$route.query.dateTo] : null,
+            itemLength: parseInt(this.$route.query?.itemLength) || 10,
+            currentPage: parseInt(this.$route.query?.currentPage) || 1,
+            sortBy: [ ...((this.$route.query?.sortBy) ? [this.$route.query.sortBy] : []) ],
+            sortOrder: [ ...((this.$route.query?.sortOrder) ? [this.$route.query.sortOrder === 'desc'] : []) ]
+          },
         },
         userForm: { show: false, action: '', data: {} }
       };

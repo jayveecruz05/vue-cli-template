@@ -168,7 +168,7 @@
             currentPage: parseInt(this.$route.query?.currentPage) || 1,
             sortBy: [ ...((this.$route.query?.sortBy) ? [this.$route.query.sortBy] : []) ],
             sortOrder: [ ...((this.$route.query?.sortOrder) ? [this.$route.query.sortOrder === 'desc'] : []) ]
-          },
+          }
         },
         userForm: { show: false, action: '', data: {} }
       };

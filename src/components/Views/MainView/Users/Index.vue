@@ -12,16 +12,16 @@
       <v-col class="pa-0" cols="12">
         <v-row>
           <v-col md="3" lg="3" cols="12">
-            <v-text-field v-model="dataTable.search" label="Search" placeholder="Search" append-icon="search" solo dense flat color="primary" clearable hide-details/>
+            <v-text-field v-model="dataTable.filter.search" label="Search" placeholder="Search" append-icon="search" solo dense flat color="primary" clearable hide-details/>
           </v-col>
           <v-col md="2" cols="12">
-            <v-select :items="['active', 'deactivated', 'deleted']" label="Status" placeholder="Status" solo dense flat color="primary" background-color="primaryBackgroundColor" clearable hide-details/>
+            <v-select v-model="dataTable.filter.status" :items="['active', 'deactivated', 'deleted']" label="Status" placeholder="Status" solo dense flat color="primary" background-color="primaryBackgroundColor" clearable hide-details/>
           </v-col>
           <v-col md="2" cols="12">
-            <v-select :items="['administrator', 'finance admin']" label="Role Type" placeholder="Role Type" solo dense flat color="primary" background-color="primaryBackgroundColor" clearable hide-details/>
+            <v-select v-model="dataTable.filter.roleType" :items="['admin', 'Super Admin']" label="Role Type" placeholder="Role Type" solo dense flat color="primary" background-color="primaryBackgroundColor" clearable hide-details/>
           </v-col>
           <v-col md="3" cols="12">
-            <app-date-picker v-model="dataTable.date" label="Select Dates" placeholder="Select Dates" min="1950-01-01" :max="new Date().toISOString().substr(0, 10)" solo custom-range clearable hide-details />
+            <app-date-picker v-model="dataTable.filter.dates" label="Select Dates" placeholder="Select Dates" min="1950-01-01" :max="new Date().toISOString().substr(0, 10)" solo range-menu clearable hide-details />
           </v-col>
           <v-spacer/>
           <v-col md="auto" lg="auto" cols="12">
@@ -31,7 +31,7 @@
       </v-col>
 
       <v-col class="d-flex flex-column flex-grow-1 py-0" cols="12">
-        <v-data-table class="custom-table-ui no-loading-bar" v-model="dataTable.selected" :show-select="false" item-key="user_id" :headers="dataTable.headers" :items="dataTable.data" :loading="(dataTable.loading)" loader-height="0" loading-text="Loading data..." :page.sync="dataTable.currentPage" :items-per-page.sync="dataTable.itemLength" :sort-by.sync="dataTable.sortBy" :sort-desc.sync="dataTable.sortDesc" :custom-sort="(items) => (items)" hide-default-footer>
+        <v-data-table class="custom-table-ui no-loading-bar" v-model="dataTable.selected" :show-select="false" item-key="user_id" :headers="dataTable.headers" :items="dataTable.data" :loading="(dataTable.loading)" loader-height="0" loading-text="Loading data..." :page.sync="dataTable.filter.currentPage" :items-per-page.sync="dataTable.filter.itemLength" :sort-by.sync="dataTable.filter.sortBy" :sort-desc.sync="dataTable.filter.sortOrder" :custom-sort="(items) => (items)" hide-default-footer>
           <template v-slot:[`item.mobile_number`]="{ item }">
             <span>{{ `+63${item.mobile_number}` }}</span>
           </template>
@@ -104,10 +104,10 @@
         <v-card class="data-table-footer d-flex align-center justify-space-between flex-wrap border-radius-10 py-0" flat color="primaryBackgroundColor">
           <div class="flex-md-grow-0 flex-sm-grow-0 flex-grow-1 d-flex align-center justify-center py-2 px-3">
             <span>Show</span>
-            <v-select class="item-length" v-model="dataTable.itemLength" :items="[10, 20, 50, 100]" solo dense flat color="primary" background-color="secondaryBackgroundColor" hide-details/>
+            <v-select class="item-length" v-model="dataTable.filter.itemLength" :items="[10, 20, 50, 100]" solo dense flat color="primary" background-color="secondaryBackgroundColor" hide-details/>
             <span class="px-0" md="auto" sm="auto" cols="auto">per page</span>
           </div>
-          <v-pagination v-if="(dataTable.totalPages > 0)" class="flex-md-grow-0 flex-sm-grow-0 flex-grow-1 justify-center py-2" v-model="dataTable.currentPage" :length="dataTable.totalPages" :total-visible="7"></v-pagination>
+          <v-pagination v-if="(dataTable.totalPages > 0)" class="flex-md-grow-0 flex-sm-grow-0 flex-grow-1 justify-center py-2" v-model="dataTable.filter.currentPage" :length="dataTable.totalPages" :total-visible="7"></v-pagination>
         </v-card>
       </v-col>
     </v-row>
@@ -132,14 +132,18 @@
       return {
         dataTable: {
           loading: true,
-          search: '',
-          date: null,
-          itemLength: 10,
-          currentPage: 1,
-          totalPages: 1,
           selected: [],
-          sortBy: [],
-          sortDesc: [],
+          totalPages: 1,
+          filter: {
+            search: this.$route.query?.search || '',
+            status: this.$route.query?.status || '',
+            roleType: this.$route.query?.roleType || '',
+            dates: (this.$route.query?.dateFrom && this.$route.query?.dateTo) ? [this.$route.query.dateFrom, this.$route.query.dateTo] : null,
+            itemLength: parseInt(this.$route.query?.itemLength) || 10,
+            currentPage: parseInt(this.$route.query?.currentPage) || 1,
+            sortBy: [ ...((this.$route.query?.sortBy) ? [this.$route.query.sortBy] : []) ],
+            sortOrder: [ ...((this.$route.query?.sortOrder) ? [this.$route.query.sortOrder === 'desc'] : []) ]
+          },
           headers: [
             { text: 'User Name', value: 'user_name' },
             { text: 'Full Name', value: 'full_name', sort: (a, b) => String(a).localeCompare(String(b)) },
@@ -160,10 +164,10 @@
             { text: '', value: 'actions', sortable: false, width: '130px' },
           ],
           data: [
-            { user_id: 'U1', user_name: 'john', first_name: 'John', last_name: 'Doe', email: 'johndoe@yahoo.com', confirmed: true, mobile_number: '9112233445', roles: ['superadmin', 'admin'], last_update: '05/24/2020 14:13:00' },
-            { user_id: 'U2', user_name: 'jane', first_name: 'Jane', last_name: 'Doe', email: 'janedoe@yahoo.com', confirmed: false, mobile_number: '9667788990', roles: ['admin'], last_update: '04/27/2018 17:13:00' },
-            { user_id: 'U3', user_name: 'richard', first_name: 'Richard', last_name: 'Doe', email: 'richarddoe@yahoo.com', confirmed: true, mobile_number: '9123124562', roles: ['superadmin', 'admin'], last_update: '03/25/2020 12:13:00' },
-            { user_id: 'U4', user_name: 'janie', first_name: 'Janie', last_name: 'Doe', email: 'janiedoe@yahoo.com', confirmed: false, mobile_number: '9109283081', roles: ['admin'], last_update: '03/25/2019 11:13:00' },
+            { user_id: 'U1', user_name: 'john', first_name: 'John', last_name: 'Doe', email: 'johndoe@yahoo.com', confirmed: true, mobile_number: '9112233445', roles: ['Super Admin', 'Admin'], last_update: '05/24/2020 14:13:00' },
+            { user_id: 'U2', user_name: 'jane', first_name: 'Jane', last_name: 'Doe', email: 'janedoe@yahoo.com', confirmed: false, mobile_number: '9667788990', roles: ['Admin'], last_update: '04/27/2018 17:13:00' },
+            { user_id: 'U3', user_name: 'richard', first_name: 'Richard', last_name: 'Doe', email: 'richarddoe@yahoo.com', confirmed: true, mobile_number: '9123124562', roles: ['Super Admin', 'Admin'], last_update: '03/25/2020 12:13:00' },
+            { user_id: 'U4', user_name: 'janie', first_name: 'Janie', last_name: 'Doe', email: 'janiedoe@yahoo.com', confirmed: false, mobile_number: '9109283081', roles: ['Admin'], last_update: '03/25/2019 11:13:00' },
           ] || undefined
         },
         userForm: { show: false, action: '', data: {} }
@@ -178,51 +182,53 @@
         if (to) {
           this.dataTable.loading = false;
           this.dataTable.data = to.data;
-
           window.scrollTo(0, 0);
         }
       },
-      'dataTable.search'() {
+      'dataTable.filter': {
+        deep: true,
+        handler() { this.setUrlFilter(); }
+      },
+      'dataTable.filter.search'() {
         clearTimeout(this.searchTimeout);
         this.searchTimeout = setTimeout(() => {
-          this.dataTable.currentPage = 1;
+          this.dataTable.filter.currentPage = 1;
           this.getData();
         }, 300);
       },
-      'dataTable.itemLength'() {
-        this.dataTable.currentPage = 1;
+      'dataTable.filter.itemLength'() {
+        this.dataTable.filter.currentPage = 1;
         this.getData();
       },
-      'dataTable.currentPage'() {
+      'dataTable.filter.currentPage'() {
         this.getData();
       },
-      'dataTable.sortBy'() {
-        const sortBy = this.dataTable.sortBy[0],
-              sortDesc = this.dataTable.sortDesc[0];
-
-        if (sortBy != undefined && sortDesc != undefined && sortDesc != true) {
+      'dataTable.filter.sortBy'() {
+        const sortBy = this.dataTable.filter.sortBy[0],
+              sortOrder = this.dataTable.filter.sortOrder[0];
+        if (sortBy != undefined && sortOrder != undefined && sortOrder != true) {
           // console.log('sortBy');
-          // console.log({ sortBy, sortDesc });
+          // console.log({ sortBy, sortOrder });
           this.getData();
-        } else if (sortBy == undefined && sortDesc == undefined) {
+        } else if (sortBy == undefined && sortOrder == undefined) {
           this.getData();
         }
       },
-      'dataTable.sortDesc'() {
-        const sortBy = this.dataTable.sortBy[0],
-              sortDesc = this.dataTable.sortDesc[0];
-
-        if (sortBy != undefined && sortDesc != undefined) {
-          // console.log('sortDesc');
-          // console.log({ sortBy, sortDesc });
+      'dataTable.filter.sortOrder'() {
+        const sortBy = this.dataTable.filter.sortBy[0],
+              sortOrder = this.dataTable.filter.sortOrder[0];
+        if (sortBy != undefined && sortOrder != undefined) {
+          // console.log('sortOrder');
+          // console.log({ sortBy, sortOrder });
           this.getData();
-        } else if (sortBy == undefined && sortDesc == undefined) {
+        } else if (sortBy == undefined && sortOrder == undefined) {
           this.getData();
         }
       }
     },
     methods: {
       initiate() {
+        this.setUrlFilter();
         // this.getData();
         this.dataTable.data = this.dataTable.data.map((details) => ({ ...details, full_name: `${details.first_name} ${details.last_name}` }));
       },
@@ -230,7 +236,7 @@
         this.$api.main.cancelCurrentApiCall(this.userApiCancelToken);
         this.userApiCancelToken = this.generateApiCancelToken();
         this.dataTable.loading = true;
-        const { search, itemLength, currentPage, sortBy, sortDesc } = this.dataTable;
+        const { search, itemLength, currentPage, sortBy, sortOrder } = this.dataTable.filter;
         this.$store.dispatch('users/fetchUsers', {
           config: {
             params: {
@@ -238,7 +244,7 @@
               limit: itemLength,
               page: currentPage,
               sortby: sortBy[0],
-              sorting: (sortDesc[0] != undefined) ? ((!sortDesc[0]) ? 'asc' : 'desc') : undefined
+              sortOrder: (sortOrder[0] != undefined) ? ((!sortOrder[0]) ? 'asc' : 'desc') : undefined
             }
           },
           apiCancelToken: this.userApiCancelToken
@@ -276,6 +282,22 @@
             });
           }
         );
+      },
+      setUrlFilter() {
+        const { search, status, roleType, dates, itemLength, currentPage, sortBy, sortOrder } = this.dataTable.filter;
+        this.$router.replace({
+          query: {
+            search: search || undefined,
+            status: status || undefined,
+            roleType: roleType || undefined,
+            dateFrom: (dates && Array.isArray(dates) && dates.length == 2) ? dates[0] : undefined,
+            dateTo: (dates && Array.isArray(dates) && dates.length == 2) ? dates[1] : undefined,
+            itemLength,
+            currentPage,
+            sortBy: sortBy[0],
+            sortOrder: ((sortOrder[0] != undefined) ? ((!sortOrder[0]) ? 'asc' : 'desc') : undefined)
+          }
+        });
       },
       action({ action, data }) {
         // console.log(action, data);

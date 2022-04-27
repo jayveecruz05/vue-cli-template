@@ -166,8 +166,8 @@
             dates: (this.$route.query?.dateFrom && this.$route.query?.dateTo) ? [this.$route.query.dateFrom, this.$route.query.dateTo] : null,
             itemLength: parseInt(this.$route.query?.itemLength) || 10,
             currentPage: parseInt(this.$route.query?.currentPage) || 1,
-            sortBy: [ ...((this.$route.query?.sortBy) ? [this.$route.query.sortBy] : []) ],
-            sortOrder: [ ...((this.$route.query?.sortOrder) ? [this.$route.query.sortOrder === 'desc'] : []) ]
+            sortBy: (this.$route.query?.sortBy) ? [this.$route.query.sortBy] : [],
+            sortOrder: (this.$route.query?.sortOrder) ? [this.$route.query.sortOrder === 'desc'] : []
           }
         },
         userForm: { show: false, action: '', data: {} }

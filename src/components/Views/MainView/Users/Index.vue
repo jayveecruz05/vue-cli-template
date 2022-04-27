@@ -174,7 +174,21 @@
       };
     },
     computed: {
-      usersList() { return this.$store.getters['users/getUsersList']; }
+      usersList() { return this.$store.getters['users/getUsersList']; },
+      dataTableFilter() {
+        const { search, status, roleType, dates, itemLength, currentPage, sortBy, sortOrder } = this.dataTable.filter;
+        return {
+          search: search || undefined,
+          status: status || undefined,
+          roleType: roleType || undefined,
+          startDate: (dates && Array.isArray(dates) && dates.length == 2) ? dates[0] : undefined,
+          endDate: (dates && Array.isArray(dates) && dates.length == 2) ? dates[1] : undefined,
+          itemLength,
+          currentPage,
+          sortBy: sortBy[0],
+          sortOrder: ((sortOrder[0] != undefined) ? ((!sortOrder[0]) ? 'asc' : 'desc') : undefined)
+        };
+      }
     },
     watch: {
       usersList(to) {
@@ -236,15 +250,15 @@
         this.$api.main.cancelCurrentApiCall(this.userApiCancelToken);
         this.userApiCancelToken = this.generateApiCancelToken();
         this.dataTable.loading = true;
-        const { search, itemLength, currentPage, sortBy, sortOrder } = this.dataTable.filter;
+        const { search, itemLength, currentPage, sortBy, sortOrder } = this.dataTableFilter;
         this.$store.dispatch('users/fetchUsers', {
           config: {
             params: {
-              search: search || undefined,
+              search,
               limit: itemLength,
               page: currentPage,
-              sortby: sortBy[0],
-              sortOrder: (sortOrder[0] != undefined) ? ((!sortOrder[0]) ? 'asc' : 'desc') : undefined
+              sortBy,
+              sortOrder
             }
           },
           apiCancelToken: this.userApiCancelToken
@@ -284,20 +298,7 @@
         );
       },
       setUrlFilter() {
-        const { search, status, roleType, dates, itemLength, currentPage, sortBy, sortOrder } = this.dataTable.filter;
-        this.$router.replace({
-          query: {
-            search: search || undefined,
-            status: status || undefined,
-            roleType: roleType || undefined,
-            startDate: (dates && Array.isArray(dates) && dates.length == 2) ? dates[0] : undefined,
-            endDate: (dates && Array.isArray(dates) && dates.length == 2) ? dates[1] : undefined,
-            itemLength,
-            currentPage,
-            sortBy: sortBy[0],
-            sortOrder: ((sortOrder[0] != undefined) ? ((!sortOrder[0]) ? 'asc' : 'desc') : undefined)
-          }
-        });
+        this.$router.replace({ query: { ...this.$route.query, ...this.dataTableFilter } });
       },
       action({ action, data }) {
         // console.log(action, data);

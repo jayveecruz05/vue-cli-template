@@ -26,7 +26,7 @@
             </template>
             <v-tooltip v-for="(navChild, navChildKey) in nav.child" :key="navChildKey" right>
               <template v-slot:activator="{ on }">
-                <router-link class="router-link" :to="{ name: navChild.to }" :exact="(navChild.to == 'dashboard')">
+                <router-link class="router-link" :to="{ name: navChild.to, query: ((navChild.to === $route.name && !!Object.keys($route.query).length) ? $route.query : {}) }" :exact="(navChild.to == 'dashboard')">
                   <v-list-item v-on="on" link>
                     <v-list-item-icon v-if="(navChild.icon)" class="nav-icon">
                       <div :class="['v-icon', `v-icon-${navChild.iconType}`]" v-html="require(`!html-loader!@/assets/img/${navChild.icon}.svg`)"></div>
@@ -40,7 +40,7 @@
               <span>{{ navChild.title }}</span>
             </v-tooltip>
           </v-list-group>
-          <router-link v-else class="router-link" :to="{ name: nav.to }" :exact="(nav.to == 'dashboard')">
+          <router-link v-else class="router-link" :to="{ name: nav.to, query: ((nav.to === $route.name && !!Object.keys($route.query).length) ? $route.query : {}) }" :exact="(nav.to == 'dashboard')">
             <v-list-item v-on="on" link>
               <v-list-item-icon v-if="(nav.icon)" class="nav-icon">
                 <div :class="['v-icon', `v-icon-${nav.iconType}`]" v-html="require(`!html-loader!@/assets/img/${nav.icon}.svg`)"></div>

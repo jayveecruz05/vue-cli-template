@@ -32,7 +32,7 @@
                   <v-text-field v-model="formData.mobile_number" label="Mobile Number" autocomplete="off" color="primary" flat outlined dense clearable :rules="[$validate.rules.required, $validate.rules.mobileNumber]" :disabled="(action == 'view' || formData.loading)" type="tel" prefix="+63" maxlength="10" counter="10" @keypress="$validate.numbersOnly"/>
                 </v-col>
                 <v-col class="py-0" md="6" cols="12">
-                  <v-text-field v-model="formData.email" label="Email" autocomplete="off" color="primary" flat outlined dense clearable :rules="[$validate.rules.required, $validate.rules.email]" :disabled="(action == 'view' || formData.loading)"/>
+                  <v-text-field v-model.trim="formData.email" label="Email" autocomplete="off" color="primary" flat outlined dense clearable :rules="[$validate.rules.required, $validate.rules.email]" :disabled="(action == 'view' || formData.loading)"/>
                 </v-col>
                 <v-col v-if="(action == 'add')" class="py-0" md="6" cols="12">
                   <v-text-field v-model="formData.password" label="Password" color="primary" flat outlined dense clearable :rules="[$validate.rules.required]" :disabled="(formData.loading)" :type="((showPassword) ? 'text' : 'password')" :append-icon="((showPassword) ? 'mdi-eye' : 'mdi-eye-off')" @click:append="showPassword = !showPassword"/>

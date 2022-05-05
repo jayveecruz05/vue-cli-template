@@ -44,6 +44,10 @@ Vue.use(VueCookies);
 const isSecured = /^production$/ig.test(process.env?.NODE_ENV);
 Vue.$cookies.config('7d', '', '', isSecured, 'Strict');
 
+// Vue Meta
+import VueMeta from 'vue-meta';
+Vue.use(VueMeta);
+
 // Vue Number Animation
 import VueNumberAnimation from 'vue-number-animation';
 Vue.use(VueNumberAnimation);

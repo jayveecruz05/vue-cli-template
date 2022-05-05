@@ -7,6 +7,12 @@
 <script>
   export default {
     name: 'app',
+    metaInfo: {
+      titleTemplate: (titleChunk) => {
+        // If undefined or blank then we don't need the hyphen
+        return titleChunk ? `${titleChunk} | Template` : 'Template';
+      }
+    },
     data() {
       return {};
     },
@@ -52,15 +58,17 @@
         if (token) { this.$store.dispatch('authentication/setToken', token); }
       },
       setTheme() {
-        let isDarkMode = !!Number(window.localStorage.getItem('isDarkMode'));
-        // Detect System Dark Mode
-        // if (!!window && !!window.matchMedia && !Number(window.localStorage.getItem('isDarkMode'))) {
-        //   isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        //   window.localStorage.setItem('isDarkMode', Number(isDarkMode));
-        // } else {
-        //   isDarkMode = !!Number(window.localStorage.getItem('isDarkMode'));
-        // }
-        this.$vuetify.theme.dark = isDarkMode;
+        setTimeout(() => {
+          let isDarkMode = !!Number(window.localStorage.getItem('isDarkMode'));
+          // Detect System Dark Mode
+          // if (!!window && !!window.matchMedia && !Number(window.localStorage.getItem('isDarkMode'))) {
+          //   isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          //   window.localStorage.setItem('isDarkMode', Number(isDarkMode));
+          // } else {
+          //   isDarkMode = !!Number(window.localStorage.getItem('isDarkMode'));
+          // }
+          this.$vuetify.theme.dark = isDarkMode;
+        });
       },
       clearData() {
         this.$store.dispatch('clearState');

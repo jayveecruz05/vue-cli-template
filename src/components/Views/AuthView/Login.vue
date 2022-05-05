@@ -17,6 +17,9 @@
 <script>
   export default {
     name: 'login-module',
+    metaInfo: {
+      title: 'Login'
+    },
     data() {
       return {
         showPassword: false,

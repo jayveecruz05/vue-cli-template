@@ -56,11 +56,12 @@ const routes = [
   //   // which is lazy-loaded when the route is visited.
   //   component: () => import(/* webpackChunkName: "template" */ '@/views/template')
   // },
-  // { // For 404 Page
-  //   path: '/:pathMatch(.*)*',
-  //   name: 'not-found',
-  //   component: () => import(/* webpackChunkName: "template" */ '@/views/PathNotFound')
-  // }
+  { // For 404 Page
+    path: '/:pathMatch(.*)*',
+    name: 'not-found',
+    redirect: { path: '/' }
+    // component: () => import(/* webpackChunkName: "template" */ '@/views/PathNotFound')
+  }
 ];
 
 const router = new VueRouter({

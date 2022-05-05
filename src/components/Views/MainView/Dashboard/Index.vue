@@ -113,6 +113,9 @@
 <script>
   export default {
     name: 'dashboard-module',
+    metaInfo: {
+      title: 'Dashboard'
+    },
     data() {
       return {
         profiles: {

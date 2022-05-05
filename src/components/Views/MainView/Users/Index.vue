@@ -125,6 +125,9 @@
 
   export default {
     name: 'users-module',
+    metaInfo: {
+      title: 'Users'
+    },
     components: {
       UserForm
     },

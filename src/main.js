@@ -46,7 +46,9 @@ Vue.$cookies.config('7d', '', '', isSecured, 'Strict');
 
 // Vue Meta
 import VueMeta from 'vue-meta';
-Vue.use(VueMeta);
+Vue.use(VueMeta, {
+  refreshOnceOnNavigation: true
+});
 
 // Vue Number Animation
 import VueNumberAnimation from 'vue-number-animation';

@@ -42,9 +42,9 @@
     }
   }
 
-  @for $i from 1 through 10 {
-    $border-radius: 5px * $i;
-    .border-radius-#{5 * $i} {
+  @for $i from 0 through 50 {
+    $border-radius: 1px * $i;
+    .border-radius-#{1 * $i} {
       border-radius: $border-radius !important;
     }
   }

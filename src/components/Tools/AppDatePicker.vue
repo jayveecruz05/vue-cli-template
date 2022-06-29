@@ -76,8 +76,8 @@
           yesterday: [yesterday.toISOString().slice(0, 10), yesterday.toISOString().slice(0, 10)],
           last_7_days: [last_7_days.toISOString().slice(0, 10), today.toISOString().slice(0, 10)],
           last_30_days: [last_30_days.toISOString().slice(0, 10), today.toISOString().slice(0, 10)],
-          this_month: [new Date(today.getFullYear(), today.getMonth(), 2).toISOString().slice(0, 10), new Date(today.getFullYear(), today.getMonth() + 1, 1).toISOString().slice(0, 10)],
-          last_month: [new Date(today.getFullYear(), today.getMonth() - 1, 2).toISOString().slice(0, 10), new Date(today.getFullYear(), today.getMonth(), 1).toISOString().slice(0, 10)],
+          this_month: [new Date(today.getFullYear(), today.getMonth(), 2).toISOString().slice(0, 10), new Date(today.getFullYear(), today.getMonth(), (today.getDate() + 1)).toISOString().slice(0, 10)],
+          last_month: [new Date(today.getFullYear(), (today.getMonth() - 1), 2).toISOString().slice(0, 10), new Date(today.getFullYear(), today.getMonth(), 1).toISOString().slice(0, 10)],
           custom_range: null
         }
       }

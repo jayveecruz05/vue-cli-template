@@ -88,7 +88,7 @@ router.beforeEach((to, from, next) => {
       router.app.$cookies.remove('token');
       router.app.$api.main.setAuthorization(undefined);
       window.localStorage.setItem('isLogin', 0);
-      next({ name: 'login', query: { redirect: ((to.name != mainViewRedirect.name) ? to.name : undefined) } });
+      next({ name: 'login', query: { redirect: ((to.name != mainViewRedirect.name) ? to.name : undefined), ...to.query } });
     }
   } else {
     if (to.matched.length === 0) {

@@ -64,7 +64,9 @@
       },
       redirect() {
         if (this.query.redirect) {
-          this.$router.push({ name: this.query.redirect });
+          let query = { ...this.query };
+          delete query.redirect;
+          this.$router.push({ name: this.query.redirect, query });
         } else {
           this.$router.push({ name: 'main-view' });
         }

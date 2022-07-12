@@ -13,7 +13,7 @@ const Users = () => import(/* webpackChunkName: "users" */ '@/components/Views/M
 const mainViewRedirect = { name: 'dashboard' };
 const routes = [
   {
-    path: '/auth',
+    path: '/',
     name: 'auth-view',
     redirect: { name: 'login' },
     component: AuthView,
@@ -91,7 +91,7 @@ router.beforeEach((to, from, next) => {
       next({ name: 'login', query: { redirect: ((to.name != mainViewRedirect.name) ? to.name : undefined) } });
     }
   } else {
-    if (to.matched.length == 0) {
+    if (to.matched.length === 0) {
       next();
     } else if (token) {
       if (!router.app.$api.main.getAuthorization()) { router.app.$api.main.setAuthorization(window.atob(token)); } // Decode Base64

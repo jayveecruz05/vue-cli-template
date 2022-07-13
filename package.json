@@ -47,7 +47,7 @@
     "vue-cli-plugin-vuetify": "^2.5.1",
     "vue-template-babel-compiler": "^1.2.0",
     "vue-template-compiler": "^2.7.4",
-    "vuetify-loader": "^1.9.0"
+    "vuetify-loader": "^1.9.1"
   },
   "eslintConfig": {
     "root": true,

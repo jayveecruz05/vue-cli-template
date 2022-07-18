@@ -50,25 +50,12 @@
                     </template>
                   </v-select>
                 </v-col>
-                <v-col class="py-0" md="6" cols="12">
-                  <v-select v-model="formData.sites" :items="siteList" label="Sites" color="primary" flat outlined multiple small-chips deletable-chips hide-selected clearable :menu-props="{ top: true, offsetY: true }" :rules="[$validate.rules.requiredList]" :disabled="(action == 'view' || formData.loading)">
-                    <template v-slot:selection="{ item, parent, selected }">
-                      <v-chip :input-value="selected" label small class="primaryTextColor--text" color="primary" @click.native.stop>
-                        <span class="pr-2">{{ item }}</span>
-                        <v-icon small right @click="parent.selectItem(item)">mdi-close</v-icon>
-                      </v-chip>
-                    </template>
-                  </v-select>
-                </v-col>
                 <!-- <v-col md="3" cols="12" class="py-0 mb-7">
                   <v-switch v-model="formData.active" class="mt-0 ml-1" inset label="Active" :disabled="(action == 'view' || formData.loading)" hide-details/>
                 </v-col>
                 <v-col md="3" cols="12" class="py-0 mb-7">
                   <v-switch v-model="formData.confirmed" class="mt-0 ml-1" inset label="Confirmed" :disabled="(action == 'view' || formData.loading)" hide-details/>
                 </v-col> -->
-                <v-col class="py-0" md="6" cols="12">
-                  <v-select v-model="formData.commission" :items="Array.from({length: 99}, (_, i) => `${i + 1}%`)" label="Percent Commission (Optional)" color="primary" flat outlined clearable :disabled="(action == 'view' || formData.loading)"/>
-                </v-col>
                 <v-col class="py-0" cols="12">
                   <app-file-field v-model="formData.image" color="primary" clearable :rules="[$validate.rules.required]" :disabled="(action == 'view' || formData.loading)"/>
                 </v-col>
@@ -108,7 +95,6 @@
         showPassword: false,
         showConfrimPassword: false,
         roleList: ['Administrator', 'User', 'Agent', 'Arena Admin', 'Report Admin', 'CMS Admin', 'Agent Admin', 'User Admin', 'Declare Admin', 'Declare Confirmation Admin', 'Loading Admin', 'Finance Admin', 'CSR', 'Draw Admin', 'Support'],
-        siteList: ['Site 1', 'Site 2', 'Site 3', 'Site 4', 'Site 5'],
         formData: {
           status: false,
           loading: false,
@@ -122,8 +108,6 @@
           password: '',
           confirm_password: '',
           roles: [],
-          sites: [],
-          commission: '',
           image: { model: undefined, content: undefined }
         }
       };
@@ -164,8 +148,6 @@
             password: '',
             confirm_password: '',
             roles: [],
-            sites: [],
-            commission: '',
             image: { model: undefined, content: undefined }
           };
         });

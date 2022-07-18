@@ -15,10 +15,10 @@
             <v-text-field v-model="dataTable.filter.search" label="Search" placeholder="Search" append-icon="search" solo dense flat color="primary" clearable hide-details/>
           </v-col>
           <v-col md="2" cols="12">
-            <v-select v-model="dataTable.filter.status" :items="['active', 'deactivated', 'deleted']" label="Status" placeholder="Status" solo dense flat color="primary" background-color="primaryBackgroundColor" clearable hide-details/>
+            <v-select v-model="dataTable.filter.status" :items="dataTable.filter.statusList" label="Status" placeholder="Status" solo dense flat color="primary" background-color="primaryBackgroundColor" clearable hide-details/>
           </v-col>
           <v-col md="2" cols="12">
-            <v-select v-model="dataTable.filter.roleType" :items="['admin', 'Super Admin']" label="Role Type" placeholder="Role Type" solo dense flat color="primary" background-color="primaryBackgroundColor" clearable hide-details/>
+            <v-select v-model="dataTable.filter.role" :items="dataTable.filter.roleList" label="Role" placeholder="Role" solo dense flat color="primary" background-color="primaryBackgroundColor" clearable hide-details/>
           </v-col>
           <v-col md="3" cols="12">
             <app-date-picker v-model="dataTable.filter.dates" label="Select Dates" placeholder="Select Dates" min="1950-01-01" :max="new Date().toISOString().substr(0, 10)" solo range-menu clearable hide-details />
@@ -164,8 +164,10 @@
           totalPages: 1,
           filter: {
             search: this.$route.query?.search || '',
+            statusList: ['active', 'deactivated', 'deleted'],
             status: this.$route.query?.status || '',
-            roleType: this.$route.query?.roleType || '',
+            roleList: ['Administrator', 'User', 'Agent', 'Arena Admin', 'Report Admin', 'CMS Admin', 'Agent Admin', 'User Admin', 'Declare Admin', 'Declare Confirmation Admin', 'Loading Admin', 'Finance Admin', 'CSR', 'Draw Admin', 'Support'],
+            role: this.$route.query?.role || '',
             dates: (this.$route.query?.startDate && this.$route.query?.endDate) ? [this.$route.query.startDate, this.$route.query.endDate] : null,
             itemLength: parseInt(this.$route.query?.itemLength) || 10,
             currentPage: parseInt(this.$route.query?.currentPage) || 1,
@@ -179,11 +181,11 @@
     computed: {
       usersList() { return this.$store.getters['users/getUsersList']; },
       dataTableFilter() {
-        const { search, status, roleType, dates, itemLength, currentPage, sortBy, sortOrder } = this.dataTable.filter;
+        const { search, status, role, dates, itemLength, currentPage, sortBy, sortOrder } = this.dataTable.filter;
         return {
           search: search || undefined,
           status: status || undefined,
-          roleType: roleType || undefined,
+          role: role || undefined,
           startDate: (dates && Array.isArray(dates) && dates.length == 2) ? dates[0] : undefined,
           endDate: (dates && Array.isArray(dates) && dates.length == 2) ? dates[1] : undefined,
           itemLength,

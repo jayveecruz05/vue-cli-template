@@ -162,7 +162,7 @@
           ],
           data: [
             { location_id: 'L1', tenant: 'Yondu, Inc.', location: 'Panorama Tower', count: 432, limit: 1000 },
-            { location_id: 'L2', tenant: 'GLobe', location: 'TGT Tower', count: 321, limit: 500 }
+            { location_id: 'L2', tenant: 'Globe', location: 'TGT Tower', count: 321, limit: 500 }
           ] || []
         },
         chart: {

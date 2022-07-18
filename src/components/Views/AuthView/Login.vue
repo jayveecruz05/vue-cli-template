@@ -7,8 +7,8 @@
     <v-card-subtitle class="ma-0 pa-0 pb-5 text-center font-size-18">Sign In to your account</v-card-subtitle>
     <v-form v-model="formData.status" ref="formData">
       <v-alert v-if="(formData.notification)" class="text-left" :type="formData.notification.type" dense outlined>{{ formData.notification.message }}</v-alert>
-      <v-text-field v-model.trim="formData.email" label="Email Address" placeholder="Email Address" color="primary" autocomplete="off" flat solo dense autofocus :disabled="formData.loading" :rules="[$validate.rules.required, $validate.rules.email]" required @keyup.enter="signIn"/>
-      <v-text-field v-model="formData.password" label="Password" placeholder="Password" color="primary" flat solo dense :disabled="formData.loading" :rules="[$validate.rules.required]" required :type="((showPassword) ? 'text' : 'password')" :append-icon="((showPassword) ? 'mdi-eye' : 'mdi-eye-off')" @click:append="showPassword = !showPassword" @keyup.enter="signIn"/>
+      <v-text-field v-model.trim="formData.email" label="Email Address" color="primary" autocomplete="off" flat outlined dense autofocus :disabled="formData.loading" :rules="[$validate.rules.required, $validate.rules.email]" required @keyup.enter="signIn"/>
+      <v-text-field v-model="formData.password" label="Password" color="primary" flat outlined dense :disabled="formData.loading" :rules="[$validate.rules.required]" required :type="((showPassword) ? 'text' : 'password')" :append-icon="((showPassword) ? 'mdi-eye' : 'mdi-eye-off')" @click:append="showPassword = !showPassword" @keyup.enter="signIn"/>
       <v-btn class="primaryTextColor--text mt-3" block color="primary" :loading="formData.loading" @click="signIn">Sign In</v-btn>
     </v-form>
   </v-card>

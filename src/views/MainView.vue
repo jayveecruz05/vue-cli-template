@@ -1,12 +1,29 @@
 <template>
   <div id="main-view">
-    <app-progress-bar/>
-    <app-notifications/>
-    <app-navigation/>
-    <app-bar/>
-    <v-main class="fill-height">
-      <router-view class="content" />
-    </v-main>
+    <!-- Main View Wrapper -->
+    <template v-if="(show)">
+      <app-progress-bar/>
+      <app-notifications/>
+      <app-navigation/>
+      <app-bar/>
+      <v-main class="fill-height">
+        <router-view class="content" />
+      </v-main>
+    </template>
+    <!-- /Main View Wrapper -->
+
+    <!-- Loading Wrapper -->
+    <template v-else>
+      <v-container fluid class="fill-height align-center justify-center">
+        <v-card id="loading-wrapper" width="300px" color="transparent" flat>
+          <v-card-text class="d-flex flex-column align-center justify-center">
+            <div id="logo" v-html="require(`!html-loader!@/assets/img/kaia-logo.svg`)"></div>
+            <v-progress-linear class="my-10" color="primary" height="6" rounded indeterminate/>
+          </v-card-text>
+        </v-card>
+      </v-container>
+    </template>
+    <!-- /Loading Wrapper -->
   </div>
 </template>
 
@@ -25,7 +42,9 @@
       appBar
     },
     data() {
-      return {};
+      return {
+        show: false
+      };
     },
     watch: {
       $route() {
@@ -35,7 +54,10 @@
     },
     methods: {
       initiate() {
-        window.scrollTo(0, 0);
+        setTimeout(() => {
+          this.show = true;
+          window.scrollTo(0, 0);
+        }, 1000);
       }
     },
     mounted() {
@@ -45,7 +67,7 @@
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss" scoped>
+<style lang="scss">
   #main-view {
     .content {
       display: flex;
@@ -56,6 +78,16 @@
       max-width: 100%;
       min-height: 100%;
       max-height: 100%;
+    }
+
+    #loading-wrapper {
+      #logo {
+        svg {
+          display: block;
+          width: 60px;
+          height: 60px;
+        }
+      }
     }
   }
 </style>

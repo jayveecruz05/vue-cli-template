@@ -5,7 +5,7 @@ module.exports = {
     // port: 3000,
   },
   chainWebpack: config => {
-    config.plugins.delete('prefetch');
+    // config.plugins.delete('prefetch');
     config.plugin('html').tap(args => {
       args[0].title = 'Template'
       return args

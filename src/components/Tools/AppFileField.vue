@@ -5,23 +5,23 @@
       <slot v-if=(!file.model) name="file-input">
         <div class="wrapper flex-column flex-md-row pa-5">
           <div class="d-flex flex-column flex-md-row align-center">
-            <v-icon class="file-icon">mdi-file</v-icon>
+            <v-icon class="file-icon" :disabled="disabled">mdi-file</v-icon>
             <span class="text-center text-body-1 pa-4">Drag and Drop file or Browse</span>
           </div>
-          <v-btn class="ma-2" outlined>Upload File</v-btn>
+          <v-btn class="ma-2" outlined :disabled="disabled">Upload File</v-btn>
         </div>
       </slot>
       <slot v-else name="file-output">
         <div class="wrapper flex-column flex-md-row pa-5">
           <div class="file-holder flex-column flex-md-row align-center">
-            <v-icon class="file-icon">mdi-file</v-icon>
+            <v-icon class="file-icon" :disabled="disabled">mdi-file</v-icon>
             <div class="text-center text-md-left pa-4">
               <p class="ma-0 text-body-1">Added File</p>
               <p class="ma-0 text-body-2">{{ file.model.name }}</p>
             </div>
           </div>
           <div class="fill-width d-flex flex-column flex-md-row">
-            <v-btn class="ma-2" outlined>Replace file</v-btn>
+            <v-btn class="ma-2" outlined :disabled="disabled">Replace file</v-btn>
           </div>
         </div>
       </slot>
@@ -149,6 +149,11 @@
       &.v-input {
         caret-color: rgba(0, 0, 0, 0.54);
         color: rgba(0, 0, 0, 0.54);
+
+        &.v-input--is-disabled {
+          caret-color: rgba(0, 0, 0, 0.38);
+          color: rgba(0, 0, 0, 0.38);
+        }
       }
 
       .v-icon {
@@ -166,6 +171,11 @@
       &.v-input {
         caret-color: #FFFFFF;
         color: #FFFFFF;
+
+        &.v-input--is-disabled {
+          caret-color: rgba(255, 255, 255, 0.5);
+          color: rgba(255, 255, 255, 0.5);
+        }
       }
 
       .v-icon {
@@ -271,6 +281,10 @@
           height: 100%;
           padding: 0;
           cursor: pointer;
+
+          &[disabled] {
+            cursor: default;
+          }
         }
       }
     }

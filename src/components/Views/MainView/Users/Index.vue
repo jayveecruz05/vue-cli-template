@@ -32,6 +32,10 @@
 
       <v-col class="d-flex flex-column flex-grow-1 py-0" cols="12">
         <v-data-table class="custom-table-ui no-loading-bar" v-model="dataTable.selected" :show-select="false" item-key="user_id" :headers="dataTable.headers" :items="dataTable.data" :loading="(dataTable.loading)" loader-height="0" loading-text="Loading data..." :page.sync="dataTable.filter.currentPage" :items-per-page.sync="dataTable.filter.itemLength" :sort-by.sync="dataTable.filter.sortBy" :sort-desc.sync="dataTable.filter.sortOrder" :custom-sort="(items) => (items)" hide-default-footer>
+          <template v-slot:[`item.user_name`]="{ item }">
+            <td class="sticky left">{{ item.user_name }}</td>
+          </template>
+
           <template v-slot:[`item.mobile_number`]="{ item }">
             <span>{{ `+63${item.mobile_number}` }}</span>
           </template>
@@ -57,7 +61,7 @@
           </template>
 
           <template v-slot:[`item.actions`]="{ item }">
-            <div class="action">
+            <td class="actions sticky right text-right text-md-center pa-0" :style="{ '--right': '0' }">
               <v-tooltip bottom>
                 <template v-slot:activator="{ on }">
                   <v-icon class="mr-2" small v-on="on" @click="action({ action: 'view', data: item })">mdi-eye</v-icon>
@@ -83,7 +87,7 @@
                 <template v-slot:activator="{ on: menu, attrs }">
                   <v-tooltip bottom>
                     <template v-slot:activator="{ on: tooltip }">
-                      <v-icon class="mr-2" small v-bind="attrs" v-on="{ ...tooltip, ...menu }">mdi-dots-vertical</v-icon>
+                      <v-icon small v-bind="attrs" v-on="{ ...tooltip, ...menu }">mdi-dots-vertical</v-icon>
                     </template>
                     <span>More</span>
                   </v-tooltip>
@@ -95,7 +99,7 @@
                   <v-list-item dense link>Force Details Update</v-list-item>
                 </v-list>
               </v-menu>
-            </div>
+            </td>
           </template>
         </v-data-table>
 
@@ -135,7 +139,7 @@
       return {
         dataTable: {
           headers: [
-            { text: 'User Name', value: 'user_name' },
+            { text: 'User Name', value: 'user_name', class: 'sticky left' },
             { text: 'Full Name', value: 'full_name', sort: (a, b) => String(a).localeCompare(String(b)) },
             { text: 'Mobile Number', value: 'mobile_number' },
             { text: 'Email Address', value: 'email' },
@@ -151,7 +155,7 @@
               }
             },
             // { text: 'Status', value: 'status' },
-            { text: '', value: 'actions', sortable: false, width: '130px' },
+            { text: '', value: 'actions', class: 'sticky right', sortable: false, width: '130px' },
           ],
           data: [
             { user_id: 'U1', user_name: 'john', first_name: 'John', last_name: 'Doe', email: 'johndoe@yahoo.com', confirmed: true, mobile_number: '9112233445', roles: ['Super Admin', 'Admin'], last_update: '05/24/2020 14:13:00' },

@@ -88,6 +88,6 @@
 </script>
 
 <style lang="scss">
-  @import '@/assets/css/main.scss';
   @import url('https://fonts.googleapis.com/css?family=Material+Icons');
+  @import '@/assets/css/main.scss';
 </style>

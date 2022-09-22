@@ -2,6 +2,8 @@
 
 // import mainApi from '@/assets/js/api/modules/main';
 
+// https://docs.vuestorefront.io/v1/guide/vuex/vuex-conventions.html = Vuex Naming Conventions
+
 export default {
   namespaced: true,
   state: {

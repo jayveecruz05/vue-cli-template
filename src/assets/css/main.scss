@@ -54,6 +54,26 @@
       border-radius: $border-radius !important;
     }
   }
+  
+  .sticky {
+    position: sticky;
+
+    &.left {
+      left: var(--left, 0);
+    }
+
+    &.top {
+      top: var(--top, 0);
+    }
+
+    &.bottom {
+      bottom: var(--bottom, 0);
+    }
+
+    &.right {
+      right: var(--right, 0);
+    }
+  }
 
   .v-menu__content {
     .theme--light {
@@ -318,11 +338,19 @@
   }
 
   .v-data-table {
+    background-color: inherit;
+    
     table {
-      td,
-      th {
+      tr {
+        &:hover {
+          background-color: transparent;
+        }
+      }
+
+      td, th {
         min-width: 125px;
         padding: 10px 15px;
+        background-color: var(--v-primaryBackgroundColor-base);
       }
 
       // Modify default styling for sort headers
@@ -358,10 +386,6 @@
           }
         }
       }
-
-      tr:hover {
-        background-color: transparent;
-      }
     }
 
     .v-text-field {
@@ -371,33 +395,6 @@
     .v-data-footer {
       margin-top: 10px;
       border: 0;
-    }
-
-    &.theme--light {
-      background-color: transparent;
-      // background-color: var(--v-primaryBackgroundColor-base);
-
-      tbody {
-        // tr:nth-child(even){
-        //   td {
-        //     background-color: #FAFBFC;
-        //   }
-        // }
-        td {
-          background-color: var(--v-primaryBackgroundColor-base);
-        }
-      }
-    }
-
-    &.theme--dark {
-      background-color: transparent;
-      // background-color: var(--v-primaryBackgroundColor-base);
-
-      tbody {
-        td {
-          background-color: var(--v-primaryBackgroundColor-base);
-        }
-      }
     }
 
     .status {
@@ -442,15 +439,44 @@
     }
 
     &.custom-table-ui {
+      background-color: transparent;
+
+      &.theme--light {
+        thead {
+          th {
+            background-color: var(--v-secondaryBackgroundColor-base);
+          }
+        }
+  
+        tbody {
+          // tr:nth-child(even){
+          //   td {
+          //     background-color: #FAFBFC;
+          //   }
+          // }
+          td {
+            background-color: var(--v-primaryBackgroundColor-base);
+          }
+        }
+      }
+  
+      &.theme--dark {
+        thead {
+          th {
+            background-color: var(--v-secondaryBackgroundColor-base);
+          }
+        }
+  
+        tbody {
+          td {
+            background-color: var(--v-primaryBackgroundColor-base);
+          }
+        }
+      }
+
       table {
         border-collapse: separate;
         border-spacing: 0 15px;
-
-        td,
-        th {
-          // min-width: 125px;
-          border-bottom: 0 solid transparent;
-        }
 
         tr {
           margin: 10px 0;
@@ -458,6 +484,10 @@
           &.v-data-table__mobile-table-row {
             display: table-row;
           }
+        }
+
+        td, th {
+          border-bottom: 0 solid transparent;
         }
 
         td {

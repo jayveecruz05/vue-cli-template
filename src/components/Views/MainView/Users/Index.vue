@@ -119,7 +119,7 @@
     <user-form v-bind="userForm" @close="userForm = { ...userForm, show: false, data: {} }"/>
 
     <app-confirm v-model="confirmDialog.show" v-bind="confirmDialog">
-      <p class="font-size-14 ma-0">{{ confirmDialog.message }} {{ `${(confirmDialog.data) ? `"${confirmDialog.data.first_name} ${confirmDialog.data.last_name}"?` : 'this user?'}` }}</p>
+      <p class="font-size-14 ma-0">{{ confirmDialog.message }} {{ `${(confirmDialog.data) ? `"${confirmDialog.data.user_name}"?` : 'this user?'}` }}</p>
     </app-confirm>
   </v-container>
 </template>

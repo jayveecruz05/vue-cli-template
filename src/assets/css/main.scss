@@ -57,6 +57,7 @@
   
   .sticky {
     position: sticky;
+    z-index: 2;
 
     &.left {
       left: var(--left, 0);

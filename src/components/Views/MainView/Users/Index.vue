@@ -61,7 +61,7 @@
           </template>
 
           <template v-slot:[`item.actions`]="{ item }">
-            <td class="actions sticky right text-right text-md-center pa-0" :style="{ '--right': '0' }">
+            <td class="actions sticky right text-right text-sm-center pa-0" :style="{ '--right': '0' }">
               <v-tooltip bottom>
                 <template v-slot:activator="{ on }">
                   <v-icon class="mr-2" small v-on="on" @click="action({ action: 'view', data: item })">mdi-eye</v-icon>

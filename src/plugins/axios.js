@@ -144,6 +144,27 @@ const api = (instanceConfig) => {
         );
       });
     },
+    patch(payload) {
+      const { url = '', data = {}, config = {}, apiCancelToken = generateApiCancelToken() } = payload || {};
+      return new Promise((resolve, reject) => {
+        axiosInstance.patch(url, data, {
+          ...config,
+          cancelToken: new CancelToken((cancelSource) => { apiCallList = { ...apiCallList, [apiCancelToken]: cancelSource }; })
+        }).then(
+          (response) => {
+            // console.log(response);
+            delete apiCallList[apiCancelToken];
+            resolve(response);
+          }
+        ).catch(
+          (error) => {
+            // console.log(error);
+            delete apiCallList[apiCancelToken];
+            if (!Axios.isCancel(error)) { reject(error); }
+          }
+        );
+      });
+    },
     delete(payload) {
       const { url = '', config = {}, apiCancelToken = generateApiCancelToken() } = payload || {};
       return new Promise((resolve, reject) => {

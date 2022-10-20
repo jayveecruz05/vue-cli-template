@@ -17,7 +17,7 @@ const global = {
           p = p.$parent;
         }
       }
-      return false;
+      return undefined;
     },
     generateApiCancelToken() { return `api_cancel_token_${Math.floor(Math.random() * Date.now()).toString(36).slice(2)}`; },
     confirmAction(payload) {

@@ -7,8 +7,8 @@ const AuthView = () => import(/* webpackChunkName: "auth-view" */ '@/views/AuthV
 const Login = () => import(/* webpackChunkName: "login" */ '@/components/Views/AuthView/Login');
 
 const MainView = () => import(/* webpackChunkName: "main-view" */ '@/views/MainView');
-const Dashboard = () => import(/* webpackChunkName: "dashboard" */ '@/components/Views/MainView/Dashboard/Index');
-const Users = () => import(/* webpackChunkName: "users" */ '@/components/Views/MainView/Users/Index');
+const Dashboard = () => import(/* webpackChunkName: "dashboard" */ '@/components/Views/MainView/Dashboard');
+const Users = () => import(/* webpackChunkName: "users" */ '@/components/Views/MainView/Users');
 
 const mainViewRedirect = { name: 'dashboard' };
 const routes = [

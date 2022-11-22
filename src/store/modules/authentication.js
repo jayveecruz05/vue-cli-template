@@ -31,7 +31,7 @@ export default {
       context.commit('SET_TOKEN', payload);
     },
     login(context) {
-      // const { data, config, apiCancelToken } = payload || {};
+      // const { data, config, apiCancelToken } = payload;
       return new Promise((resolve) => {
         const token = window.btoa(Math.floor(Math.random() * Date.now()).toString(36).substr(2)); // Encode To Base64
         context.commit('SET_TOKEN', token);
@@ -51,8 +51,8 @@ export default {
         // );
       });
     },
-    // fetchUserInfo(context, payload) {
-    //   const { config, apiCancelToken } = payload || {};
+    // fetchUserInfo(context, payload = {}) {
+    //   const { config, apiCancelToken } = payload;
     //   return new Promise((resolve, reject) => {
     //     mainApi.getData({ url: '/auth/me', config, apiCancelToken }).then(
     //       (response) => {

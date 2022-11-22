@@ -27,8 +27,8 @@ export default {
     }
   },
   actions: {
-    fetchTemplate(context, payload) {
-      const { config, apiCancelToken } = payload || {};
+    fetchTemplate(context, payload = {}) {
+      const { config, apiCancelToken } = payload;
       return new Promise((resolve, reject) => {
         mainApi.getData({ url: '/template', config, apiCancelToken }).then(
           (response) => {
@@ -45,8 +45,8 @@ export default {
         );
       });
     },
-    findTemplate(context, payload) {
-      const { config, apiCancelToken } = payload || {};
+    findTemplate(context, payload = {}) {
+      const { config, apiCancelToken } = payload;
       return new Promise((resolve, reject) => {
         mainApi.getData({ url: '/template', config, apiCancelToken }).then(
           (response) => {
@@ -63,8 +63,8 @@ export default {
         );
       });
     },
-    addTemplate(context, payload) {
-      const { data, config, apiCancelToken } = payload || {};
+    addTemplate(context, payload = {}) {
+      const { data, config, apiCancelToken } = payload;
       return new Promise((resolve, reject) => {
         mainApi.postData({ url: '/template', data, config, apiCancelToken }).then(
           (response) => {
@@ -80,8 +80,8 @@ export default {
         );
       });
     },
-    setTemplate(context, payload) {
-      const { data, config, apiCancelToken } = payload || {};
+    setTemplate(context, payload = {}) {
+      const { data, config, apiCancelToken } = payload;
       return new Promise((resolve, reject) => {
         mainApi.putData({ url: '/template', data, config, apiCancelToken }).then(
           (response) => {
@@ -97,8 +97,8 @@ export default {
         );
       });
     },
-    deleteTemplate(context, payload) {
-      const { config, apiCancelToken } = payload || {};
+    deleteTemplate(context, payload = {}) {
+      const { config, apiCancelToken } = payload;
       return new Promise((resolve, reject) => {
         mainApi.deleteData({ url: '/template', config, apiCancelToken }).then(
           (response) => {

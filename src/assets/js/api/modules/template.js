@@ -3,8 +3,8 @@
 import api from '../index';
 
 export default {
-  getData(payload) {
-    const { url, config, apiCancelToken } = payload || {};
+  getData(payload = {}) {
+    const { url, config, apiCancelToken } = payload;
     return new Promise((resolve, reject) => {
       api.main.get({ url, config, apiCancelToken }).then(
         (response) => {
@@ -19,8 +19,8 @@ export default {
       );
     });
   },
-  postData(payload) {
-    const { url, data, config, apiCancelToken } = payload || {};
+  postData(payload = {}) {
+    const { url, data, config, apiCancelToken } = payload;
     return new Promise((resolve, reject) => {
       api.main.post({ url, data, config, apiCancelToken }).then(
         (response) => {
@@ -35,8 +35,8 @@ export default {
       );
     });
   },
-  putData(payload) {
-    const { url, data, config, apiCancelToken } = payload || {};
+  putData(payload = {}) {
+    const { url, data, config, apiCancelToken } = payload;
     return new Promise((resolve, reject) => {
       api.main.put({ url, data, config, apiCancelToken }).then(
         (response) => {
@@ -51,8 +51,8 @@ export default {
       );
     });
   },
-  patchData(payload) {
-    const { url, data, config, apiCancelToken } = payload || {};
+  patchData(payload = {}) {
+    const { url, data, config, apiCancelToken } = payload;
     return new Promise((resolve, reject) => {
       api.main.patch({ url, data, config, apiCancelToken }).then(
         (response) => {
@@ -67,8 +67,8 @@ export default {
       );
     });
   },
-  deleteData(payload) {
-    const { url, config, apiCancelToken } = payload || {};
+  deleteData(payload = {}) {
+    const { url, config, apiCancelToken } = payload;
     return new Promise((resolve, reject) => {
       api.main.delete({ url, config, apiCancelToken }).then(
         (response) => {

@@ -6,8 +6,8 @@ import Vue from 'vue';
 // Axios
 import Axios from 'axios';
 
-const api = (instanceConfig) => {
-  const { baseURL = '', headers = {} } = instanceConfig || {};
+const api = (instanceConfig = {}) => {
+  const { baseURL = '', headers = {} } = instanceConfig;
 
   const vm = new Vue({ name: 'app-api' });
   
@@ -81,8 +81,8 @@ const api = (instanceConfig) => {
         apiCallList = {};
       }
     },
-    get(payload) {
-      const { url = '', config = {}, apiCancelToken = generateApiCancelToken() } = payload || {};
+    get(payload = {}) {
+      const { url = '', config = {}, apiCancelToken = generateApiCancelToken() } = payload;
       return new Promise((resolve, reject) => {
         axiosInstance.get(url, {
           ...config,
@@ -102,8 +102,8 @@ const api = (instanceConfig) => {
         );
       });
     },
-    post(payload) {
-      const { url = '', data = {}, config = {}, apiCancelToken = generateApiCancelToken() } = payload || {};
+    post(payload = {}) {
+      const { url = '', data = {}, config = {}, apiCancelToken = generateApiCancelToken() } = payload;
       return new Promise((resolve, reject) => {
         axiosInstance.post(url, data, {
           ...config,
@@ -123,8 +123,8 @@ const api = (instanceConfig) => {
         );
       });
     },
-    put(payload) {
-      const { url = '', data = {}, config = {}, apiCancelToken = generateApiCancelToken() } = payload || {};
+    put(payload = {}) {
+      const { url = '', data = {}, config = {}, apiCancelToken = generateApiCancelToken() } = payload;
       return new Promise((resolve, reject) => {
         axiosInstance.put(url, data, {
           ...config,
@@ -144,8 +144,8 @@ const api = (instanceConfig) => {
         );
       });
     },
-    patch(payload) {
-      const { url = '', data = {}, config = {}, apiCancelToken = generateApiCancelToken() } = payload || {};
+    patch(payload = {}) {
+      const { url = '', data = {}, config = {}, apiCancelToken = generateApiCancelToken() } = payload;
       return new Promise((resolve, reject) => {
         axiosInstance.patch(url, data, {
           ...config,
@@ -165,8 +165,8 @@ const api = (instanceConfig) => {
         );
       });
     },
-    delete(payload) {
-      const { url = '', config = {}, apiCancelToken = generateApiCancelToken() } = payload || {};
+    delete(payload = {}) {
+      const { url = '', config = {}, apiCancelToken = generateApiCancelToken() } = payload;
       return new Promise((resolve, reject) => {
         axiosInstance.delete(url, {
           ...config,

@@ -27,8 +27,8 @@ export default {
     }
   },
   actions: {
-    fetchUsers(context, payload) {
-      const { config, apiCancelToken } = payload || {};
+    fetchUsers(context, payload = {}) {
+      const { config, apiCancelToken } = payload;
       return new Promise((resolve, reject) => {
         mainApi.getData({ url: '/users', config, apiCancelToken }).then(
           (response) => {
@@ -46,8 +46,8 @@ export default {
         );
       });
     },
-    findUser(context, payload) {
-      const { id, config, apiCancelToken } = payload || {};
+    findUser(context, payload = {}) {
+      const { id, config, apiCancelToken } = payload;
       return new Promise((resolve, reject) => {
         mainApi.getData({ url: `/user/${id}`, config, apiCancelToken }).then(
           (response) => {
@@ -65,8 +65,8 @@ export default {
         );
       });
     },
-    addUser(context, payload) {
-      const { data, config, apiCancelToken } = payload || {};
+    addUser(context, payload = {}) {
+      const { data, config, apiCancelToken } = payload;
       return new Promise((resolve, reject) => {
         mainApi.postData({ url: '/users', data, config, apiCancelToken }).then(
           (response) => {
@@ -82,8 +82,8 @@ export default {
         );
       });
     },
-    setUser(context, payload) {
-      const { data, config, apiCancelToken } = payload || {};
+    setUser(context, payload = {}) {
+      const { data, config, apiCancelToken } = payload;
       return new Promise((resolve, reject) => {
         mainApi.putData({ url: '/users', data, config, apiCancelToken }).then(
           (response) => {
@@ -99,8 +99,8 @@ export default {
         );
       });
     },
-    deleteUser(context, payload) {
-      const { config, apiCancelToken } = payload || {};
+    deleteUser(context, payload = {}) {
+      const { config, apiCancelToken } = payload;
       return new Promise((resolve, reject) => {
         mainApi.deleteData({ url: '/users', config, apiCancelToken }).then(
           (response) => {

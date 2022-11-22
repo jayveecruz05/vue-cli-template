@@ -20,8 +20,8 @@ const global = {
       return undefined;
     },
     generateApiCancelToken() { return `api_cancel_token_${Math.floor(Math.random() * Date.now()).toString(36).slice(2)}`; },
-    confirmAction(payload) {
-      const { title, message, buttonText, buttonTextColor, buttonBGColor, action, data, callBack } = payload || {};
+    confirmAction(payload = {}) {
+      const { title, message, buttonText, buttonTextColor, buttonBGColor, action, data, callBack } = payload;
       this.confirmDialog = { show: true, loading: false, title, message, buttonText, buttonTextColor, buttonBGColor, action, data, callBack };
     }
   }

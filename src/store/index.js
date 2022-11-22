@@ -27,7 +27,7 @@ const store = new Vuex.Store({
       // 422 = Parameter Error
       // 500 = Server Error
 
-      if (payload.response && payload.response.status == 401) {
+      if (payload?.response?.status == 401) {
         this._vm.$eventBus.$emit('clear-data');
       }
     }

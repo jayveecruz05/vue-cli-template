@@ -1,6 +1,6 @@
 # Template
 
-> Template Powered By Vue.js
+> Template Powered By Vue.js && Node.js v16.17.0
 
 ## Project setup
 ```
